@@ -1,0 +1,17 @@
+# Django
+*.log
+local_settings.py
+db.sqlite3
+__pycache__/
+*.pyc
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+
+# Mac (importante para el integrante con Mac)
+.DS_Store
+
+# VS Code
+.vscode/
