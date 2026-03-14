@@ -1,0 +1,106 @@
+
+:root {
+  --blanco: #ffffff;
+  --fondo: #e9ecef; /* NUEVO: Un azul grisáceo muy suave para todo el fondo */
+  --rojo-principal: #d32f2f; /* Rojo profesional */
+  --rojo-oscuro: #b71c1c;
+  --azul-acento: #1d3557; /* Azul profundo elegante */
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--fondo); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login-card {
+  background-color: var(--blanco);
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-top: 5px solid var(--rojo-principal);
+}
+
+.brand-icon {
+  text-align: center;
+  font-size: 3.5rem;
+  color: var(--azul-acento); 
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.login-title {
+  color: var(--azul-acento);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+}
+
+
+.input-wrapper input[type="text"],
+.input-wrapper input[type="password"] {
+  width: 100%;
+  padding: 12px 45px 12px 45px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.input-wrapper input[type="text"]:focus,
+.input-wrapper input[type="password"]:focus {
+  border-color: var(--rojo-principal);
+  box-shadow: 0 0 0 0.25rem rgba(211, 47, 47, 0.15);
+  outline: none;
+}
+
+.btn-login {
+  background-color: var(--rojo-principal);
+  color: var(--blanco);
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  margin-top: 10px;
+}
+
+.btn-login:hover {
+  background-color: var(--rojo-oscuro);
+  color: var(--blanco);
+}
+
+.btn-login:active {
+  transform: scale(0.98);
+}
