@@ -1,0 +1,95 @@
+.academic-dashboard {
+    padding: 20px;
+}
+
+.header-section {
+    margin-bottom: 25px;
+}
+
+.header-section h2 {
+    color: #1e293b;
+    margin: 0 0 5px 0;
+}
+
+.header-section p {
+    color: #64748b;
+    margin: 0;
+}
+
+/* Grid para Gestiones y Niveles */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.mt-20 { margin-top: 20px; }
+
+/* Tarjetas (Cards) */
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.card-header {
+    background: #f8fafc;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #334155;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Botones añadir */
+.btn-sm {
+    background: #0ea5e9;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.btn-sm:hover { background: #0284c7; }
+
+/* Lista de Gestiones */
+.list-group { list-style: none; padding: 0; margin: 0; }
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+.list-item:last-child { border-bottom: none; }
+
+.gestion-year { font-size: 1.2rem; font-weight: bold; color: #0f172a; }
+
+.badge.active { background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; }
+.btn-toggle { background: #f1f5f9; color: #64748b; padding: 6px 12px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; transition: 0.2s;}
+.btn-toggle:hover { background: #e2e8f0; color: #0f172a; }
+
+/* Niveles y Grados */
+.nivel-title { color: #475569; margin: 0 0 10px 0; font-size: 1rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;}
+.grados-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.tag-grado { background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: 500;}
+
+/* Tabla de Paralelos */
+.tabla-academica { width: 100%; border-collapse: collapse; }
+.tabla-academica th, .tabla-academica td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+.tabla-academica th { background: #f8fafc; color: #64748b; font-size: 0.85rem; text-transform: uppercase; }
+.badge-paralelo { background: #fef08a; color: #854d0e; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 1.1rem; }
+.empty-msg { color: #94a3b8; font-style: italic; }
+.text-center { text-align: center; }

@@ -1,0 +1,129 @@
+/* Contenedor y tarjeta del formulario */
+.form-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.form-card {
+    background: var(--white);
+    width: 100%;
+    max-width: 700px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* Cabecera del formulario */
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.form-header h3 {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+}
+
+.form-header p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Sistema de cuadrícula para los campos */
+.grid-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.full-width { 
+    grid-column: span 2; 
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+/* Estilo para los inputs de Django */
+input, select, textarea {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.1);
+}
+
+/* Textos de ayuda y error */
+.help-text { 
+    font-size: 0.75rem; 
+    color: #94a3b8; 
+}
+
+.error-text { 
+    font-size: 0.8rem; 
+    color: var(--primary-color); 
+    font-weight: 600; 
+}
+
+/* Botones de acción */
+.form-actions {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-save {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-save:hover { 
+    background: var(--primary-hover); 
+}
+
+.btn-cancel {
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Responsividad para móviles */
+@media (max-width: 600px) {
+    .grid-form { 
+        grid-template-columns: 1fr; 
+    }
+    .full-width { 
+        grid-column: span 1; 
+    }
+}

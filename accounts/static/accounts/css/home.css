@@ -1,0 +1,349 @@
+/* Variables de color institucionales: Rojo, Blanco y Gris Pizarra */
+:root {
+    --primary-color: #c62828;    /* Rojo institucional */
+    --primary-hover: #b71c1c;    /* Rojo un poco más oscuro para botones (hover) */
+    --secondary-color: #1e293b;  /* Gris Pizarra Oscuro para títulos y fondos elegantes */
+    --bg-color: #f8fafc;         /* Blanco ligeramente grisáceo para el fondo general, resalta las tarjetas blancas */
+    --text-main: #334155;        /* Gris oscuro para el texto general (mejor legibilidad que el negro) */
+    --text-light: #64748b;       /* Gris medio para textos secundarios */
+    --white: #ffffff;            /* Blanco puro para tarjetas y bloques */
+    --transition: all 0.3s ease;
+}
+
+/* Reset y ajustes generales */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Inter', sans-serif; 
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body { 
+    background: var(--bg-color); 
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* Header y Navegación Sticky */
+header { 
+    background: var(--white); 
+    padding: 1rem 2rem; 
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.logo { 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.nav-links a { 
+    color: var(--secondary-color); 
+    text-decoration: none; 
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.nav-links a:hover { 
+    color: var(--primary-color); 
+}
+
+.nav-links .btn-login {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: 6px;
+}
+
+.nav-links .btn-login:hover {
+    background: var(--primary-hover);
+    color: var(--white);
+}
+
+/* Sección Hero (con filtro gris pizarra sobre la imagen) */
+.hero { 
+    background: linear-gradient(rgba(30, 41, 59, 0.85), rgba(30, 41, 59, 0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200') center/cover; 
+    height: 80vh; 
+    min-height: 500px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    color: var(--white); 
+}
+
+.hero-content { 
+    max-width: 800px; 
+    padding: 20px; 
+    animation: fadeIn 1s ease-in-out;
+}
+
+.hero h1 { 
+    font-size: 3rem; 
+    font-weight: 700;
+    margin-bottom: 20px; 
+    line-height: 1.2;
+}
+
+.hero p { 
+    font-size: 1.2rem; 
+    margin-bottom: 40px; 
+    color: #f1f5f9;
+}
+
+.btn { 
+    background: var(--primary-color); 
+    color: var(--white); 
+    padding: 15px 35px; 
+    text-decoration: none; 
+    border-radius: 8px; 
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: inline-flex; 
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition); 
+    box-shadow: 0 4px 6px rgba(198, 40, 40, 0.2);
+}
+
+.btn:hover { 
+    background: var(--primary-hover); 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(198, 40, 40, 0.3);
+}
+
+/* Contenedor Principal */
+.container { 
+    max-width: 1200px; 
+    margin: 80px auto; 
+    padding: 0 20px; 
+}
+
+.section-title { 
+    text-align: center; 
+    font-size: 2.2rem; 
+    margin-bottom: 50px; 
+    color: var(--secondary-color); 
+    font-weight: 700;
+}
+
+/* Tarjetas de Características */
+.cards { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 30px; 
+    margin-bottom: 80px; 
+}
+
+.card { 
+    background: var(--white); 
+    padding: 40px 30px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+    text-align: center; 
+    transition: var(--transition);
+    border-top: 4px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.1); /* Sombra ahora en tono pizarra */
+    border-top-color: var(--primary-color);
+}
+
+.card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.card h3 { 
+    margin-bottom: 15px; 
+    color: var(--secondary-color); 
+}
+
+.card p {
+    color: var(--text-light);
+}
+
+/* Pasos de Inscripción */
+.steps { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+    gap: 30px; 
+    background: var(--white); 
+    padding: 50px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    margin-bottom: 80px;
+}
+
+.step { 
+    text-align: center; 
+    position: relative;
+}
+
+.step-number { 
+    width: 50px; 
+    height: 50px; 
+    background: var(--primary-color); 
+    color: var(--white); 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin: 0 auto 20px; 
+    font-weight: 700; 
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(198, 40, 40, 0.3);
+}
+
+.step h3 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.step p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* Requisitos */
+.requirements { 
+    background: var(--white); 
+    padding: 50px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.requirements ul { 
+    columns: 2; 
+    column-gap: 40px;
+    list-style: none; 
+}
+
+.requirements li { 
+    margin-bottom: 20px; 
+    padding-left: 35px; 
+    position: relative; 
+    color: var(--text-main);
+    font-size: 1.05rem;
+    break-inside: avoid;
+}
+
+.requirements li i {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--primary-color); 
+    font-size: 1.2rem;
+}
+
+/* Sección de Contacto (Fondo Rojo) */
+.contact { 
+    background: var(--primary-color); 
+    color: var(--white); 
+    padding: 80px 20px; 
+    text-align: center; 
+}
+
+.contact p {
+    color: #ffcdd2; 
+    margin-top: 10px;
+}
+
+.contact-info { 
+    display: flex; 
+    justify-content: center; 
+    gap: 50px; 
+    margin-top: 40px; 
+    flex-wrap: wrap; 
+}
+
+.contact-item { 
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    gap: 15px; 
+    font-size: 1.1rem;
+}
+
+.contact-item i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    background: var(--white);
+    padding: 15px;
+    border-radius: 50%;
+}
+
+/* Footer (Fondo Pizarra oscuro) */
+footer { 
+    background: var(--secondary-color); 
+    color: var(--white); 
+    padding: 40px 20px 20px; 
+    text-align: center; 
+}
+
+.footer-links {
+    margin-bottom: 20px;
+}
+
+.footer-links a { 
+    color: #cbd5e1; /* Gris claro para los enlaces */
+    text-decoration: none; 
+    margin: 0 15px; 
+    transition: var(--transition);
+}
+
+.footer-links a:hover { 
+    color: var(--white); 
+}
+
+.copyright { 
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+    color: #94a3b8; /* Gris medio para el copyright */
+    font-size: 0.9rem; 
+}
+
+/* Animación inicial */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Media Queries para Móviles */
+@media (max-width: 768px) {
+    header { padding: 1rem; }
+    nav { flex-direction: column; gap: 20px; }
+    .nav-links { flex-wrap: wrap; justify-content: center; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero { height: 60vh; }
+    .requirements ul { columns: 1; }
+    .steps { padding: 30px 20px; }
+    .contact-info { gap: 40px; }
+}

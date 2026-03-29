@@ -1,0 +1,100 @@
+{% extends 'Registration/base_admin.html' %}
+{% load static %}
+
+{% block page_title %}Estructura Académica{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'academic/css/structure_academic.css' %}">
+
+<div class="academic-dashboard">
+    <div class="header-section">
+        <h2>Panel de Control Académico</h2>
+        <p>Gestión de años escolares, niveles, grados y paralelos.</p>
+    </div>
+
+    <div class="grid-container">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fa-solid fa-calendar-days"></i> Gestiones Escolares</h3>
+                <button class="btn-sm btn-add" title="Añadir Gestión"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for gestion in gestiones %}
+                    <li class="list-item">
+                        <span class="gestion-year">{{ gestion.año }}</span>
+                        <div class="actions">
+                            {% if gestion.estado %}
+                                <span class="badge active"><i class="fa-solid fa-check"></i> Activa</span>
+                            {% else %}
+                                <a href="{% url 'toggle_gestion' gestion.pk %}" class="btn-toggle" title="Activar esta gestión">
+                                    <i class="fa-solid fa-power-off"></i> Activar
+                                </a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li class="empty-msg">No hay gestiones registradas.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fa-solid fa-layer-group"></i> Niveles y Grados</h3>
+                <button class="btn-sm btn-add" title="Añadir Nivel/Grado"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <div class="card-body">
+                {% for nivel in niveles %}
+                <div class="nivel-group">
+                    <h4 class="nivel-title">{{ nivel.nombre }}</h4>
+                    <div class="grados-tags">
+                        {% for grado in grados %}
+                            {% if grado.nivel == nivel %}
+                                <span class="tag-grado">{{ grado.nombre }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% empty %}
+                <p class="empty-msg">No hay niveles registrados.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card full-width mt-20">
+        <div class="card-header">
+            <h3><i class="fa-solid fa-users-rectangle"></i> Paralelos y Cupos</h3>
+            <button class="btn-sm btn-add" title="Añadir Paralelo"><i class="fa-solid fa-plus"></i> Nuevo Paralelo</button>
+        </div>
+        <div class="card-body">
+            <table class="tabla-academica">
+                <thead>
+                    <tr>
+                        <th>Nivel</th>
+                        <th>Grado</th>
+                        <th>Paralelo</th>
+                        <th>Cupo Máximo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paralelo in paralelos %}
+                    <tr>
+                        <td>{{ paralelo.grado.nivel.nombre }}</td>
+                        <td><strong>{{ paralelo.grado.nombre }}</strong></td>
+                        <td><span class="badge-paralelo">{{ paralelo.letra }}</span></td>
+                        <td>{{ paralelo.cupo_max }} alumnos</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="empty-msg text-center">No hay paralelos registrados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

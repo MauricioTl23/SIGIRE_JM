@@ -1,0 +1,102 @@
+/* Variables de color institucionales: Rojo, Blanco y Gris Pizarra */
+:root {
+    --primary-color: #c62828;    /* Rojo institucional */
+    --secondary-color: #1e293b;  /* Gris Pizarra Oscuro (reemplaza al café) */
+    --bg-color: #f8fafc;         /* Gris muy claro para el fondo */
+    --text-main: #334155;        /* Texto gris oscuro */
+    --white: #ffffff;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Inter', sans-serif; 
+}
+
+body { 
+    display: flex; 
+    min-height: 100vh; 
+    background-color: var(--bg-color); 
+    color: var(--text-main); 
+}
+
+/* Menú Lateral (Sidebar) Pizarra Oscuro */
+.sidebar {
+    width: 260px;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+}
+
+.nav-menu { 
+    flex: 1; 
+    padding: 20px 0; 
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    color: #cbd5e1; /* Gris claro para los enlaces inactivos */
+    text-decoration: none;
+    transition: all 0.3s;
+    gap: 15px;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: var(--primary-color); /* Hover en Rojo */
+    color: var(--white);
+    border-left: 4px solid var(--white);
+}
+
+/* Contenido Principal */
+.main-wrapper { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+/* Barra Superior (Topbar) Blanca */
+.topbar {
+    height: 70px;
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.user-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    font-weight: 600; 
+}
+
+.btn-logout {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.btn-logout:hover {
+    color: #b71c1c;
+}
+
+.content-area { 
+    padding: 30px; 
+    flex: 1; 
+}

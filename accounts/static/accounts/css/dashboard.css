@@ -1,0 +1,46 @@
+/* Cuadrícula de estadísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Tarjetas individuales */
+.stat-card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-left: 5px solid var(--primary-color); /* Borde Rojo por defecto */
+}
+
+/* Variación de la tarjeta con borde Gris Pizarra */
+.stat-card.alt-border {
+    border-left-color: var(--secondary-color);
+}
+
+.stat-card h3 { 
+    color: var(--text-light); 
+    font-size: 1rem; 
+    margin-bottom: 10px; 
+}
+
+.stat-card .number { 
+    font-size: 2rem; 
+    font-weight: bold; 
+    color: var(--secondary-color); 
+}
+
+/* Panel de bienvenida */
+.welcome-panel {
+    background: var(--white); 
+    padding: 30px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.welcome-panel h2 {
+    color: var(--secondary-color); 
+    margin-bottom: 15px;
+}
