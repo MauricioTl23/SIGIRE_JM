@@ -14,24 +14,37 @@
 <body>
 
     <aside class="sidebar">
-        <div class="sidebar-header">
-            <i class="fa-solid fa-building-columns"></i> UE Jesus Maria
-        </div>
-        <nav class="nav-menu">
-            <a href="{% url 'dashboard' %}" class="nav-item active">
-                <i class="fa-solid fa-chart-pie"></i> Panel Principal
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-users"></i> Estudiantes (RF2)
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-chalkboard"></i> Académico (RF4)
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-file-signature"></i> Inscripciones (RF6)
-            </a>
-        </nav>
-    </aside>
+    <div class="sidebar-header">
+        <i class="fa-solid fa-building-columns"></i> UE Jesus Maria
+    </div>
+    <nav class="nav-menu">
+    <a href="{% url 'dashboard' %}" 
+       class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+        <i class="fa-solid fa-chart-pie"></i> Panel Principal
+    </a>
+
+    {% if request.user.rol == 'director' %}
+    <a href="{% url 'list_personal' %}" 
+       class="nav-item {% if request.resolver_match.url_name == 'list_personal' or request.resolver_match.url_name == 'registrar_personal' %}active{% endif %}">
+        <i class="fa-solid fa-user-tie"></i> Gestión de Personal
+    </a>
+    {% endif %}
+
+    <a href="#" class="nav-item">
+        <i class="fa-solid fa-users"></i> Estudiantes (RF2)
+    </a>
+
+    {% if request.user.rol == 'director' %}
+    <a href="#" class="nav-item">
+        <i class="fa-solid fa-chalkboard"></i> Académico (RF4)
+    </a>
+    {% endif %}
+
+    <a href="#" class="nav-item">
+        <i class="fa-solid fa-file-signature"></i> Inscripciones (RF6)
+    </a>
+</nav>
+</aside>
 
     <div class="main-wrapper">
         <header class="topbar">
@@ -39,6 +52,10 @@
                 <h2>{% block page_title %}Dashboard{% endblock %}</h2>
             </div>
             <div class="user-info">
+                <span style="font-size: 0.75rem; background: #e2e8f0; color: #475569; padding: 4px 10px; border-radius: 20px; margin-right: 10px; font-weight: 700; text-transform: uppercase;">
+                    {{ request.user.get_rol_display }}
+                </span>
+                
                 <span><i class="fa-solid fa-user-circle"></i> Hola, {{ request.user.username }}</span>
                 <form method="post" action="{% url 'logout' %}" style="display:inline;">
                     {% csrf_token %}
@@ -50,6 +67,16 @@
         </header>
 
         <main class="content-area">
+            {% if messages %}
+                {% for message in messages %}
+                    <div style="padding: 15px; margin-bottom: 25px; border-radius: 8px; border: 1px solid transparent; 
+                        {% if message.tags == 'error' %} background-color: #fef2f2; color: #991b1b; border-color: #fecaca; 
+                        {% else %} background-color: #f0fdf4; color: #166534; border-color: #bbf7d0; {% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
             {% block content %}
             {% endblock %}
         </main>

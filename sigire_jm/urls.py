@@ -10,4 +10,13 @@ urlpatterns = [
     path('', views.home, name='home'),
     
     path('dashboard/', views.dashboard, name='dashboard'),
+    
+    path('personal/', views.list_personal, name='list_personal'),
+
+    path('personal/nuevo/', views.registrar_personal, name='registrar_personal'),
+    
+    path('personal/editar/<str:pk>/', views.editar_personal, name='editar_personal'),
+    
+    path('personal/eliminar/<str:pk>/', views.eliminar_personal, name='eliminar_personal'),
+
 ]
