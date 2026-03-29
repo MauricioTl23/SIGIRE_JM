@@ -16,7 +16,6 @@
     margin: 0;
 }
 
-/* Grid para Gestiones y Niveles */
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -25,7 +24,6 @@
 
 .mt-20 { margin-top: 20px; }
 
-/* Tarjetas (Cards) */
 .card {
     background: #ffffff;
     border-radius: 8px;
@@ -52,7 +50,6 @@
     padding: 20px;
 }
 
-/* Botones añadir */
 .btn-sm {
     background: #0ea5e9;
     color: white;
@@ -64,7 +61,6 @@
 }
 .btn-sm:hover { background: #0284c7; }
 
-/* Lista de Gestiones */
 .list-group { list-style: none; padding: 0; margin: 0; }
 .list-item {
     display: flex;
@@ -81,12 +77,10 @@
 .btn-toggle { background: #f1f5f9; color: #64748b; padding: 6px 12px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; transition: 0.2s;}
 .btn-toggle:hover { background: #e2e8f0; color: #0f172a; }
 
-/* Niveles y Grados */
 .nivel-title { color: #475569; margin: 0 0 10px 0; font-size: 1rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;}
 .grados-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
 .tag-grado { background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: 500;}
 
-/* Tabla de Paralelos */
 .tabla-academica { width: 100%; border-collapse: collapse; }
 .tabla-academica th, .tabla-academica td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
 .tabla-academica th { background: #f8fafc; color: #64748b; font-size: 0.85rem; text-transform: uppercase; }

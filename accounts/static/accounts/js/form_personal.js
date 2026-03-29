@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // --- Función para Capitalizar Nombres (Ejem: mauricio dimas -> Mauricio Dimas) ---
     const capitalizarTexto = function() {
         let valor = this.value;
-        // Solo permitimos letras y espacios
+        
         valor = valor.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
         
-        // Convertimos a "Title Case"
+        
         this.value = valor.split(' ').map(palabra => {
             if (palabra.length > 0) {
                 return palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (inputsNombre) inputsNombre.addEventListener('input', capitalizarTexto);
     if (inputsApellido) inputsApellido.addEventListener('input', capitalizarTexto);
 
-    // --- Validación de Celular (8 dígitos numéricos) ---
+  
     const celularInput = document.querySelector('input[name="celular"]');
     if (celularInput) {
         celularInput.addEventListener('input', function() {
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Validación de C.I. (Números, máx 10) ---
+    
     const ciInput = document.querySelector('input[name="cedula_identidad"]');
     if (ciInput) {
         ciInput.addEventListener('input', function() {
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Validación de Complemento (2 alfanuméricos en Mayúsculas) ---
+    
     const complementoInput = document.querySelector('input[name="complemento"]');
     if (complementoInput) {
         complementoInput.addEventListener('input', function() {

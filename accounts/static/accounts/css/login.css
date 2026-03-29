@@ -1,10 +1,10 @@
 
 :root {
   --blanco: #ffffff;
-  --fondo: #e9ecef; /* NUEVO: Un azul grisáceo muy suave para todo el fondo */
-  --rojo-principal: #d32f2f; /* Rojo profesional */
+  --fondo: #e9ecef; 
+  --rojo-principal: #d32f2f; 
   --rojo-oscuro: #b71c1c;
-  --azul-acento: #1d3557; /* Azul profundo elegante */
+  --azul-acento: #1d3557; 
 }
 
 
