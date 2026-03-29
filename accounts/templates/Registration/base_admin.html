@@ -30,15 +30,16 @@
     </a>
     {% endif %}
 
+    {% if request.user.rol == 'director' %}
+    <a href="{% url 'estructura_academica' %}" 
+       class="nav-item {% if request.resolver_match.url_name == 'estructura_academica' %}active{% endif %}">
+        <i class="fa-solid fa-chalkboard"></i> Académico
+    </a>
+    {% endif %}
+
     <a href="#" class="nav-item">
         <i class="fa-solid fa-users"></i> Estudiantes (RF2)
     </a>
-
-    {% if request.user.rol == 'director' %}
-    <a href="#" class="nav-item">
-        <i class="fa-solid fa-chalkboard"></i> Académico (RF4)
-    </a>
-    {% endif %}
 
     <a href="#" class="nav-item">
         <i class="fa-solid fa-file-signature"></i> Inscripciones (RF6)
