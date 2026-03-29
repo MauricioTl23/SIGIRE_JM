@@ -12,6 +12,7 @@ ENV/
 
 # Mac (importante para el integrante con Mac)
 .DS_Store
+.env
 
 # VS Code
 .vscode/

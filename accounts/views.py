@@ -10,6 +10,9 @@ from django.shortcuts import get_object_or_404
 from .forms import RegistroPersonalForm
 from .models import User
 from .decorators import only_director, only_administrative
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from .forms import CustomPasswordChangeForm
 
 # 1. Vista Pública
 def home(request):
@@ -133,3 +136,12 @@ def eliminar_personal(request, pk):
         messages.warning(request, f"El usuario {usuario.username} ha sido desactivado.")
     
     return redirect('list_personal')
+
+class UserPasswordChangeView(PasswordChangeView):
+    form_class = CustomPasswordChangeForm
+    template_name = 'Registration/change_password.html'
+    success_url = reverse_lazy('dashboard') # A donde va después de cambiarla
+
+    def form_valid(self, form):
+        messages.success(self.request, "¡Tu contraseña ha sido actualizada con éxito!")
+        return super().form_valid(form)

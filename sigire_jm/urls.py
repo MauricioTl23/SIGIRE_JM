@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from accounts import views as accounts_views
 from academic import views as academic_views
+from accounts.views import UserPasswordChangeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,6 +20,8 @@ urlpatterns = [
     path('personal/editar/<str:pk>/', accounts_views.editar_personal, name='editar_personal'),
 
     path('personal/eliminar/<str:pk>/', accounts_views.eliminar_personal, name='eliminar_personal'),
+    
+    path('password-change/', UserPasswordChangeView.as_view(), name='password_change'),
 
     path('estructura/', academic_views.estructura_academica, name='estructura_academica'),
 

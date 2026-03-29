@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import PasswordChangeForm
 from .models import User
 from django.core.exceptions import ValidationError
 import re
@@ -65,3 +66,9 @@ class RegistroPersonalForm(forms.ModelForm):
         if len(cel) != 8:
             raise ValidationError("El celular debe tener exactamente 8 dígitos.")
         return cel
+    
+class CustomPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control'})

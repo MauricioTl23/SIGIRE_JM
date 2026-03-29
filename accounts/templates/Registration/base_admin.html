@@ -46,6 +46,9 @@
           <span style="font-size: 0.75rem; background: #e2e8f0; color: #475569; padding: 4px 10px; border-radius: 20px; margin-right: 10px; font-weight: 700; text-transform: uppercase;">{{ request.user.get_rol_display }}</span>
 
           <span><i class="fa-solid fa-user-circle"></i> Hola, {{ request.user.username }}</span>
+          <div class="user-info">
+            <a href="{% url 'password_change' %}" style="text-decoration: none; color: #475569; margin-right: 15px;" title="Configuración"><i class="fa-solid fa-gear"></i> Seguridad</a>
+          </div>
           <form method="post" action="{% url 'logout' %}" style="display:inline;">
             {% csrf_token %}
             <button type="submit" style="background:none; border:none; cursor:pointer;" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
@@ -54,6 +57,40 @@
       </header>
 
       <main class="content-area">
+        {% if messages %}
+          <div style="margin-bottom: 20px;">
+            {% for message in messages %}
+              <div style="padding: 12px; border-radius: 6px; margin-bottom: 10px; font-weight: 600; border-left: 4px solid;
+                {% if message.tags == 'error' %}
+                  
+                  background-color: #fef2f2; color: #dc2626; border-color: #dc2626;
+
+                {% elif message.tags == 'warning' %}
+                  
+                  background-color: #fffbeb; color: #92400e; border-color: #f59e0b;
+
+                {% else %}
+                  
+                  background-color: #d1fae5; color: #065f46; border-color: #10b981;
+
+                {% endif %}">
+                <i class="fa-solid 
+                  {% if message.tags == 'error' %}
+                     fa-circle-xmark
+
+                  {% elif message.tags == 'warning' %}
+                     fa-triangle-exclamation
+
+                  {% else %}
+                     fa-circle-check
+                  {% endif %}">
+
+                </i>
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
 
         {% block content %}
 
