@@ -1,0 +1,77 @@
+{% extends 'Registration/base_admin.html' %}
+{% load static %}
+
+{% block page_title %}Gestión de Tutores{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'students/css/list_tutores.css' %}?v=1" />
+
+<div class="list-container-wrapper">
+    <div class="tutor-list-card">
+        
+        <div class="list-header">
+            <div class="header-info">
+                <h3><i class="fa-solid fa-users"></i> Directorio de Tutores</h3>
+                <p>Lista general de padres de familia y apoderados.</p>
+            </div>
+            <a href="#" class="btn-add-tutor">
+                <i class="fa-solid fa-user-plus"></i> Nuevo Tutor
+            </a>
+        </div>
+
+        <div class="list-body">
+            <table class="tutor-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th>Nombre Completo</th>
+                        <th>Cédula de Identidad</th>
+                        <th>Contacto</th>
+                        <th>Ocupación</th>
+                        <th style="text-align: center;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="row-number">1</span></td>
+                        <td>
+                            <div class="tutor-info">
+                                <span class="tutor-name">PÉREZ MAMANI, Juan Carlos</span>
+                                <small class="tutor-sub">Apoderado</small>
+                            </div>
+                        </td>
+                        <td><span class="ci-badge">7455337-1A OR</span></td>
+                        <td>
+                            <a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i> 77123456</a>
+                        </td>
+                        <td>Ingeniero Civil</td>
+                        <td class="actions-cell">
+                            <a href="#" class="btn-action edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="#" class="btn-action delete"><i class="fa-solid fa-trash-can"></i></a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="row-number">2</span></td>
+                        <td>
+                            <div class="tutor-info">
+                                <span class="tutor-name">QUISPE FLORES, María Elena</span>
+                                <small class="tutor-sub">Apoderado</small>
+                            </div>
+                        </td>
+                        <td><span class="ci-badge">1234567 LP</span></td>
+                        <td>
+                            <a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i> 65432109</a>
+                        </td>
+                        <td>Comerciante</td>
+                        <td class="actions-cell">
+                            <a href="#" class="btn-action edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="#" class="btn-action delete"><i class="fa-solid fa-trash-can"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

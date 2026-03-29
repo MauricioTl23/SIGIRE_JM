@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from accounts import views as accounts_views
 from academic import views as academic_views
+from students import views as students_views
 from accounts.views import UserPasswordChangeView
 
 urlpatterns = [
@@ -42,4 +43,8 @@ urlpatterns = [
     path('paralelo/nuevo/', academic_views.crear_paralelo, name='crear_paralelo'),
     
     path('paralelo/eliminar/<int:pk>/', academic_views.eliminar_paralelo, name='eliminar_paralelo'),
+
+    path('tutor/nuevo/', students_views.registrar_tutor, name='registrar_tutor'),
+
+    path('tutores/', students_views.list_tutores, name='list_tutores'),
 ]

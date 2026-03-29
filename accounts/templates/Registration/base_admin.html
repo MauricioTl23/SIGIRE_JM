@@ -8,7 +8,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
+    
     <link rel="stylesheet" href="{% static 'accounts/css/base_admin.css' %}" />
   </head>
   <body>
@@ -17,17 +17,44 @@
         <i class="fa-solid fa-building-columns"></i> UE Jesus Maria
       </div>
       <nav class="nav-menu">
-        <a href="{% url 'dashboard' %}" class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"><i class="fa-solid fa-chart-pie"></i> Panel Principal</a>
+        <a href="{% url 'dashboard' %}" class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+          <i class="fa-solid fa-chart-pie"></i> Panel Principal
+        </a>
 
         {% if request.user.rol == 'director' %}
-          <a href="{% url 'list_personal' %}" class="nav-item {% if request.resolver_match.url_name == 'list_personal' or request.resolver_match.url_name == 'registrar_personal' %}active{% endif %}"><i class="fa-solid fa-user-tie"></i> Gestión de Personal</a>
+          <a href="{% url 'list_personal' %}" class="nav-item {% if request.resolver_match.url_name == 'list_personal' or request.resolver_match.url_name == 'registrar_personal' %}active{% endif %}">
+            <i class="fa-solid fa-user-tie"></i> Gestión de Personal
+          </a>
         {% endif %}
 
         {% if request.user.rol == 'director' %}
-          <a href="{% url 'estructura_academica' %}" class="nav-item {% if request.resolver_match.url_name == 'estructura_academica' %}active{% endif %}"><i class="fa-solid fa-chalkboard"></i> Académico</a>
+          <a href="{% url 'estructura_academica' %}" class="nav-item {% if request.resolver_match.url_name == 'estructura_academica' %}active{% endif %}">
+            <i class="fa-solid fa-chalkboard"></i> Académico
+          </a>
         {% endif %}
 
-        <a href="#" class="nav-item"><i class="fa-solid fa-users"></i> Estudiantes (RF2)</a>
+        <div class="nav-group">
+          <a href="#" class="nav-item toggle-btn {% if 'tutor' in request.resolver_match.url_name or 'estudiante' in request.resolver_match.url_name %}active{% endif %}" onclick="toggleSubMenu(event, 'submenu-estudiantes')">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+              <span><i class="fa-solid fa-graduation-cap"></i> Estudiantes</span>
+              <i class="fa-solid fa-chevron-down chevron-icon {% if 'tutor' in request.resolver_match.url_name or 'estudiante' in request.resolver_match.url_name %}rotate{% endif %}"></i>
+            </div>
+          </a>
+
+          <div id="submenu-estudiantes" class="sub-menu {% if 'tutor' in request.resolver_match.url_name or 'estudiante' in request.resolver_match.url_name %}open{% endif %}">
+            <a href="{% url 'registrar_tutor' %}" class="nav-item sub-item {% if request.resolver_match.url_name == 'registrar_tutor' %}active-sub{% endif %}">
+              <i class="fa-solid fa-person-rays"></i> Registrar Tutor
+            </a>
+
+            <a href="{% url 'list_tutores' %}" class="nav-item sub-item {% if request.resolver_match.url_name == 'list_tutores' %}active-sub{% endif %}">
+              <i class="fa-solid fa-users-line"></i> Lista de Tutores
+            </a>
+
+            <a href="#" class="nav-item sub-item">
+              <i class="fa-solid fa-child-reaching"></i> Registrar Estudiante
+            </a>
+          </div>
+        </div>
 
         <a href="#" class="nav-item"><i class="fa-solid fa-file-signature"></i> Inscripciones (RF6)</a>
       </nav>
@@ -44,7 +71,6 @@
         </div>
         <div class="user-info">
           <span style="font-size: 0.75rem; background: #e2e8f0; color: #475569; padding: 4px 10px; border-radius: 20px; margin-right: 10px; font-weight: 700; text-transform: uppercase;">{{ request.user.get_rol_display }}</span>
-
           <span><i class="fa-solid fa-user-circle"></i> Hola, {{ request.user.username }}</span>
           <div class="user-info">
             <a href="{% url 'password_change' %}" style="text-decoration: none; color: #475569; margin-right: 15px;" title="Configuración"><i class="fa-solid fa-gear"></i> Seguridad</a>
@@ -62,29 +88,16 @@
             {% for message in messages %}
               <div style="padding: 12px; border-radius: 6px; margin-bottom: 10px; font-weight: 600; border-left: 4px solid;
                 {% if message.tags == 'error' %}
-                  
                   background-color: #fef2f2; color: #dc2626; border-color: #dc2626;
-
                 {% elif message.tags == 'warning' %}
-                  
                   background-color: #fffbeb; color: #92400e; border-color: #f59e0b;
-
                 {% else %}
-                  
                   background-color: #d1fae5; color: #065f46; border-color: #10b981;
-
                 {% endif %}">
                 <i class="fa-solid 
-                  {% if message.tags == 'error' %}
-                     fa-circle-xmark
-
-                  {% elif message.tags == 'warning' %}
-                     fa-triangle-exclamation
-
-                  {% else %}
-                     fa-circle-check
-                  {% endif %}">
-
+                  {% if message.tags == 'error' %} fa-circle-xmark
+                  {% elif message.tags == 'warning' %} fa-triangle-exclamation
+                  {% else %} fa-circle-check {% endif %}">
                 </i>
                 {{ message }}
               </div>
@@ -93,9 +106,10 @@
         {% endif %}
 
         {% block content %}
-
         {% endblock %}
       </main>
     </div>
+
+    <script src="{% static 'accounts/js/base_admin.js' %}"></script>
   </body>
 </html>

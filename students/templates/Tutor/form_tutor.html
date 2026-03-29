@@ -1,0 +1,74 @@
+{% extends 'Registration/base_admin.html' %}
+{% load static %}
+
+{% block page_title %}Registro de Tutor{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'students/css/form_tutor.css' %}?v=1" />
+
+<div class="form-container-wrapper">
+    <div class="tutor-form-card">
+        
+        <div class="tutor-form-header">
+            <h3><i class="fa-solid fa-address-book"></i> Registro de Tutor / Apoderado</h3>
+            <span class="module-badge">Módulo Registro</span>
+        </div>
+
+        <div class="tutor-form-body">
+            <form action="#" method="POST">
+                
+                <div class="tutor-grid">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-user"></i> Nombres</label>
+                        <input type="text" class="tutor-input" placeholder="Ej: Juan Carlos">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-user-tag"></i> Apellidos</label>
+                        <input type="text" class="tutor-input" placeholder="Ej: Pérez Mamani">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label><i class="fa-solid fa-address-card"></i> Datos de Cédula de Identidad</label>
+                        <div class="ci-grid">
+                            <div>
+                                <input type="text" class="tutor-input" placeholder="Número (Ej: 7455337)">
+                                <small class="input-hint">5 a 10 dígitos</small>
+                            </div>
+                            <div>
+                                <input type="text" class="tutor-input" placeholder="Comp. (Ej: 1A)">
+                                <small class="input-hint">Opcional</small>
+                            </div>
+                            <div>
+                                <select class="tutor-input">
+                                    <option value="OR" selected>Oruro (OR)</option>
+                                    <option value="LP">La Paz (LP)</option>
+                                    <option value="CB">Cochabamba (CB)</option>
+                                    </select>
+                                <small class="input-hint">Expedido en</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-phone-flip"></i> Teléfono Celular</label>
+                        <input type="text" class="tutor-input" placeholder="Ej: 77123456">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-briefcase"></i> Ocupación o Profesión</label>
+                        <input type="text" class="tutor-input" placeholder="Ej: Ingeniero, Comerciante...">
+                    </div>
+                </div>
+
+                <div class="form-footer-actions">
+                    <button type="submit" class="btn-save-tutor">
+                        <i class="fa-solid fa-floppy-disk"></i> Guardar Información
+                    </button>
+                    <a href="#" class="btn-cancel-tutor">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

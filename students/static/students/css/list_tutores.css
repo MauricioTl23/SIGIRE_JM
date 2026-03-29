@@ -1,0 +1,28 @@
+.list-container-wrapper { margin: 20px auto; padding: 0 10px; }
+.tutor-list-card { background: #ffffff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; overflow: hidden; }
+.list-header { padding: 20px 30px; background: #ffffff; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+.header-info h3 { margin: 0; color: #1e293b; font-size: 1.25rem; font-weight: 700; }
+.header-info p { margin: 5px 0 0; color: #64748b; font-size: 0.85rem; }
+
+.btn-add-tutor { background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+.btn-add-tutor:hover { background: #059669; transform: translateY(-2px); }
+
+.list-body { padding: 0; overflow-x: auto; }
+.tutor-table { width: 100%; border-collapse: collapse; text-align: left; }
+.tutor-table thead th { background: #f8fafc; padding: 15px 20px; color: #475569; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
+.tutor-table tbody td { padding: 15px 20px; border-bottom: 1px solid #f1f5f9; color: #334155; vertical-align: middle; }
+.tutor-table tbody tr:hover { background-color: #f8fafc; }
+
+.row-number { background: #f1f5f9; color: #475569; padding: 4px 8px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; }
+.tutor-name { display: block; font-weight: 700; color: #1e293b; }
+.tutor-sub { color: #94a3b8; font-size: 0.75rem; }
+.ci-badge { font-family: monospace; background: #eff6ff; color: #1d4ed8; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; border: 1px solid #bfdbfe; }
+.whatsapp-link { text-decoration: none; color: #059669; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; padding: 4px 10px; border-radius: 20px; transition: 0.2s; }
+.whatsapp-link:hover { background: #d1fae5; }
+
+.actions-cell { display: flex; justify-content: center; gap: 8px; }
+.btn-action { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; transition: 0.2s; text-decoration: none; }
+.btn-action.edit { color: #3b82f6; background: #eff6ff; }
+.btn-action.edit:hover { background: #3b82f6; color: white; }
+.btn-action.delete { color: #ef4444; background: #fef2f2; }
+.btn-action.delete:hover { background: #ef4444; color: white; }
