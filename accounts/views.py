@@ -90,7 +90,7 @@ def registrar_personal(request):
                 )
                 messages.success(request, f"Personal registrado. Credenciales enviadas a {nuevo_usuario.email}")
             except Exception as e:
-                # Si falla el envío, imprimimos el error en consola para que lo veas
+                
                 print(f"DEBUG: Error al enviar correo: {e}")
                 messages.warning(request, f"Usuario creado ({username_final}), pero falló el envío del correo. Revise la consola.")
 
@@ -105,7 +105,7 @@ def registrar_personal(request):
 def editar_personal(request, pk):
     usuario = get_object_or_404(User, pk=pk)
     if request.method == 'POST':
-        # Pasamos la instancia actual para que se carguen los datos
+        
         form = RegistroPersonalForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()

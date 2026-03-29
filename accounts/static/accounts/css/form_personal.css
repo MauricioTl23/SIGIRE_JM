@@ -1,4 +1,3 @@
-/* Contenedor y tarjeta del formulario */
 .form-container {
     display: flex;
     justify-content: center;
@@ -14,7 +13,6 @@
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
-/* Cabecera del formulario */
 .form-header {
     text-align: center;
     margin-bottom: 30px;
@@ -36,7 +34,6 @@
     font-size: 0.9rem;
 }
 
-/* Sistema de cuadrícula para los campos */
 .grid-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -59,7 +56,6 @@
     font-size: 0.9rem;
 }
 
-/* Estilo para los inputs de Django */
 input, select, textarea {
     padding: 12px;
     border: 1px solid #e2e8f0;
@@ -74,7 +70,6 @@ input:focus, select:focus {
     box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.1);
 }
 
-/* Textos de ayuda y error */
 .help-text { 
     font-size: 0.75rem; 
     color: #94a3b8; 
@@ -86,7 +81,6 @@ input:focus, select:focus {
     font-weight: 600; 
 }
 
-/* Botones de acción */
 .form-actions {
     margin-top: 40px;
     display: flex;
@@ -118,7 +112,6 @@ input:focus, select:focus {
     font-size: 0.9rem;
 }
 
-/* Responsividad para móviles */
 @media (max-width: 600px) {
     .grid-form { 
         grid-template-columns: 1fr; 

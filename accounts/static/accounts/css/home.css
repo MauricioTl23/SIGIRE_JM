@@ -1,16 +1,14 @@
-/* Variables de color institucionales: Rojo, Blanco y Gris Pizarra */
 :root {
-    --primary-color: #c62828;    /* Rojo institucional */
-    --primary-hover: #b71c1c;    /* Rojo un poco más oscuro para botones (hover) */
-    --secondary-color: #1e293b;  /* Gris Pizarra Oscuro para títulos y fondos elegantes */
-    --bg-color: #f8fafc;         /* Blanco ligeramente grisáceo para el fondo general, resalta las tarjetas blancas */
-    --text-main: #334155;        /* Gris oscuro para el texto general (mejor legibilidad que el negro) */
-    --text-light: #64748b;       /* Gris medio para textos secundarios */
-    --white: #ffffff;            /* Blanco puro para tarjetas y bloques */
+    --primary-color: #c62828;    
+    --primary-hover: #b71c1c;    
+    --secondary-color: #1e293b;  
+    --bg-color: #f8fafc;         
+    --text-main: #334155;        
+    --text-light: #64748b;       
+    --white: #ffffff;            
     --transition: all 0.3s ease;
 }
 
-/* Reset y ajustes generales */
 * { 
     margin: 0; 
     padding: 0; 
@@ -28,7 +26,6 @@ body {
     line-height: 1.6;
 }
 
-/* Header y Navegación Sticky */
 header { 
     background: var(--white); 
     padding: 1rem 2rem; 
@@ -84,7 +81,6 @@ nav {
     color: var(--white);
 }
 
-/* Sección Hero (con filtro gris pizarra sobre la imagen) */
 .hero { 
     background: linear-gradient(rgba(30, 41, 59, 0.85), rgba(30, 41, 59, 0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200') center/cover; 
     height: 80vh; 
@@ -136,7 +132,6 @@ nav {
     box-shadow: 0 6px 12px rgba(198, 40, 40, 0.3);
 }
 
-/* Contenedor Principal */
 .container { 
     max-width: 1200px; 
     margin: 80px auto; 
@@ -151,7 +146,6 @@ nav {
     font-weight: 700;
 }
 
-/* Tarjetas de Características */
 .cards { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
@@ -171,7 +165,7 @@ nav {
 
 .card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.1); /* Sombra ahora en tono pizarra */
+    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.1); 
     border-top-color: var(--primary-color);
 }
 
@@ -190,7 +184,6 @@ nav {
     color: var(--text-light);
 }
 
-/* Pasos de Inscripción */
 .steps { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
@@ -232,7 +225,6 @@ nav {
     font-size: 0.95rem;
 }
 
-/* Requisitos */
 .requirements { 
     background: var(--white); 
     padding: 50px; 
@@ -263,7 +255,6 @@ nav {
     font-size: 1.2rem;
 }
 
-/* Sección de Contacto (Fondo Rojo) */
 .contact { 
     background: var(--primary-color); 
     color: var(--white); 
@@ -300,7 +291,6 @@ nav {
     border-radius: 50%;
 }
 
-/* Footer (Fondo Pizarra oscuro) */
 footer { 
     background: var(--secondary-color); 
     color: var(--white); 
@@ -313,7 +303,7 @@ footer {
 }
 
 .footer-links a { 
-    color: #cbd5e1; /* Gris claro para los enlaces */
+    color: #cbd5e1; 
     text-decoration: none; 
     margin: 0 15px; 
     transition: var(--transition);
@@ -326,17 +316,15 @@ footer {
 .copyright { 
     border-top: 1px solid rgba(255,255,255,0.1);
     padding-top: 20px;
-    color: #94a3b8; /* Gris medio para el copyright */
+    color: #94a3b8; 
     font-size: 0.9rem; 
 }
 
-/* Animación inicial */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Media Queries para Móviles */
 @media (max-width: 768px) {
     header { padding: 1rem; }
     nav { flex-direction: column; gap: 20px; }

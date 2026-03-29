@@ -1,9 +1,8 @@
-/* Variables de color institucionales: Rojo, Blanco y Gris Pizarra */
 :root {
-    --primary-color: #c62828;    /* Rojo institucional */
-    --secondary-color: #1e293b;  /* Gris Pizarra Oscuro (reemplaza al café) */
-    --bg-color: #f8fafc;         /* Gris muy claro para el fondo */
-    --text-main: #334155;        /* Texto gris oscuro */
+    --primary-color: #c62828;    
+    --secondary-color: #1e293b;  
+    --bg-color: #f8fafc;        
+    --text-main: #334155;    
     --white: #ffffff;
 }
 
