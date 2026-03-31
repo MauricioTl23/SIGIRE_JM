@@ -15,57 +15,88 @@
         </div>
 
         <div class="tutor-form-body">
-            <form action="#" method="POST">
+
+            {% if form.non_field_errors %}
+                <div style="color: red; margin-bottom: 10px;">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <form action="{% url 'registrar_tutor' %}" method="POST">
+                {% csrf_token %}
                 
                 <div class="tutor-grid">
+                    
                     <div class="form-group">
                         <label><i class="fa-solid fa-user"></i> Nombres</label>
-                        <input type="text" class="tutor-input" placeholder="Ej: Juan Carlos">
+                        <input type="text" name="nombres"
+                               value="{{ form.nombres.value|default:'' }}"
+                               class="tutor-input" placeholder="Ej: Juan Carlos">
                     </div>
 
                     <div class="form-group">
                         <label><i class="fa-solid fa-user-tag"></i> Apellidos</label>
-                        <input type="text" class="tutor-input" placeholder="Ej: Pérez Mamani">
+                        <input type="text" name="apellidos"
+                               value="{{ form.apellidos.value|default:'' }}"
+                               class="tutor-input" placeholder="Ej: Pérez Mamani">
                     </div>
 
                     <div class="form-group full-width">
-                        <label><i class="fa-solid fa-address-card"></i> Datos de Cédula de Identidad</label>
+                        <label><i class="fa-solid fa-address-card"></i> Cédula de Identidad</label>
                         <div class="ci-grid">
+                            
                             <div>
-                                <input type="text" class="tutor-input" placeholder="Número (Ej: 7455337)">
-                                <small class="input-hint">5 a 10 dígitos</small>
+                                <input type="text" name="ci_nro"
+                                       value="{{ form.ci_nro.value|default:'' }}"
+                                       class="tutor-input"
+                                       placeholder="Número (Ej: 7455337)">
+                                <small class="input-hint">Número de CI</small>
                             </div>
+
                             <div>
-                                <input type="text" class="tutor-input" placeholder="Comp. (Ej: 1A)">
-                                <small class="input-hint">Opcional</small>
+                                <input type="text" name="ci_comp"
+                                       value="{{ form.ci_comp.value|default:'' }}"
+                                       class="tutor-input"
+                                       placeholder="Comp. (Opcional)">
+                                <small class="input-hint">Ej: 1, 2</small>
                             </div>
+
                             <div>
-                                <select class="tutor-input">
-                                    <option value="OR" selected>Oruro (OR)</option>
-                                    <option value="LP">La Paz (LP)</option>
-                                    <option value="CB">Cochabamba (CB)</option>
-                                    </select>
-                                <small class="input-hint">Expedido en</small>
+                                <select name="ci_exp" class="tutor-input">
+                                    {% for value, label in form.ci_exp.field.choices %}
+                                        <option value="{{ value }}"
+                                            {% if form.ci_exp.value == value %}selected{% endif %}>
+                                            {{ label }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <small class="input-hint">Expedido</small>
                             </div>
+
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label><i class="fa-solid fa-phone-flip"></i> Teléfono Celular</label>
-                        <input type="text" class="tutor-input" placeholder="Ej: 77123456">
+                        <input type="text" name="celular"
+                               value="{{ form.celular.value|default:'' }}"
+                               class="tutor-input" placeholder="Ej: 77123456">
                     </div>
 
                     <div class="form-group">
                         <label><i class="fa-solid fa-briefcase"></i> Ocupación o Profesión</label>
-                        <input type="text" class="tutor-input" placeholder="Ej: Ingeniero, Comerciante...">
+                        <input type="text" name="ocupacion"
+                               value="{{ form.ocupacion.value|default:'' }}"
+                               class="tutor-input" placeholder="Ej: Ingeniero, Comerciante...">
                     </div>
+
                 </div>
 
                 <div class="form-footer-actions">
                     <button type="submit" class="btn-save-tutor">
                         <i class="fa-solid fa-floppy-disk"></i> Guardar Información
                     </button>
-                    <a href="#" class="btn-cancel-tutor">Cancelar</a>
+                    <a href="{% url 'list_tutores' %}" class="btn-cancel-tutor">Cancelar</a>
                 </div>
             </form>
         </div>

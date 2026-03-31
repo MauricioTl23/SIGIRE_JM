@@ -14,7 +14,7 @@
                 <h3><i class="fa-solid fa-users"></i> Directorio de Tutores</h3>
                 <p>Lista general de padres de familia y apoderados.</p>
             </div>
-            <a href="#" class="btn-add-tutor">
+            <a href="{% url 'registrar_tutor' %}" class="btn-add-tutor">
                 <i class="fa-solid fa-user-plus"></i> Nuevo Tutor
             </a>
         </div>
@@ -32,43 +32,52 @@
                     </tr>
                 </thead>
                 <tbody>
+
+                    {% for tutor in tutores %}
                     <tr>
-                        <td><span class="row-number">1</span></td>
+                        <td><span class="row-number">{{ forloop.counter }}</span></td>
+
                         <td>
                             <div class="tutor-info">
-                                <span class="tutor-name">PÉREZ MAMANI, Juan Carlos</span>
+                                <span class="tutor-name">
+                                    {{ tutor.apellidos|upper }}, {{ tutor.nombres }}
+                                </span>
                                 <small class="tutor-sub">Apoderado</small>
                             </div>
                         </td>
-                        <td><span class="ci-badge">7455337-1A OR</span></td>
+
                         <td>
-                            <a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i> 77123456</a>
+                            <span class="ci-badge">
+                                {{ tutor.cedula_identidad }}
+                            </span>
                         </td>
-                        <td>Ingeniero Civil</td>
+
+                        <td>
+                            <a href="https://wa.me/591{{ tutor.celular }}" target="_blank" class="whatsapp-link">
+                                <i class="fa-brands fa-whatsapp"></i> {{ tutor.celular }}
+                            </a>
+                        </td>
+
+                        <td>{{ tutor.ocupacion }}</td>
+
                         <td class="actions-cell">
-                            <a href="#" class="btn-action edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="#" class="btn-action delete"><i class="fa-solid fa-trash-can"></i></a>
+                            <a href="#" class="btn-action edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <a href="#" class="btn-action delete">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
                         </td>
                     </tr>
 
+                    {% empty %}
                     <tr>
-                        <td><span class="row-number">2</span></td>
-                        <td>
-                            <div class="tutor-info">
-                                <span class="tutor-name">QUISPE FLORES, María Elena</span>
-                                <small class="tutor-sub">Apoderado</small>
-                            </div>
-                        </td>
-                        <td><span class="ci-badge">1234567 LP</span></td>
-                        <td>
-                            <a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i> 65432109</a>
-                        </td>
-                        <td>Comerciante</td>
-                        <td class="actions-cell">
-                            <a href="#" class="btn-action edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="#" class="btn-action delete"><i class="fa-solid fa-trash-can"></i></a>
+                        <td colspan="6" style="text-align:center;">
+                            No hay tutores registrados
                         </td>
                     </tr>
+                    {% endfor %}
+
                 </tbody>
             </table>
         </div>

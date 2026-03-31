@@ -19,6 +19,24 @@ class TutorForm(forms.ModelForm):
         for field in self.fields.values():
             field.widget.attrs.update({'class': 'tutor-input', 'placeholder': 'Escriba aquí...'})
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        nro = cleaned_data.get('ci_nro')
+        comp = cleaned_data.get('ci_comp')
+        exp = cleaned_data.get('ci_exp')
+
+        if nro and exp:
+            if comp:
+                ci = f"{nro}-{comp}-{exp}"
+            else:
+                ci = f"{nro}-{exp}"
+
+            if Tutor.objects.filter(cedula_identidad=ci).exists():
+                raise forms.ValidationError("Este CI ya está registrado.")
+
+        return cleaned_data
+
     def save(self, commit=True):
         tutor = super().save(commit=False)
         
@@ -27,9 +45,9 @@ class TutorForm(forms.ModelForm):
         exp = self.cleaned_data['ci_exp']
         
         if comp:
-            tutor.cedula_identidad = f"{nro}-{comp} {exp}"
+            tutor.cedula_identidad = f"{nro}-{comp}-{exp}"
         else:
-            tutor.cedula_identidad = f"{nro} {exp}"
+            tutor.cedula_identidad = f"{nro}-{exp}"
             
         if commit:
             tutor.save()

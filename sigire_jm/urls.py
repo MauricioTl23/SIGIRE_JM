@@ -47,4 +47,5 @@ urlpatterns = [
     path('tutor/nuevo/', students_views.registrar_tutor, name='registrar_tutor'),
 
     path('tutores/', students_views.list_tutores, name='list_tutores'),
+    
 ]
