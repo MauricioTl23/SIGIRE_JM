@@ -48,4 +48,8 @@ urlpatterns = [
 
     path('tutores/', students_views.list_tutores, name='list_tutores'),
     
+    path('tutores/editar/<str:pk>/', students_views.editar_tutor, name='editar_tutor'),
+    
+    path('tutores/eliminar/<str:pk>/', students_views.eliminar_tutor, name='eliminar_tutor'),
+    
 ]

@@ -45,10 +45,16 @@ class TutorForm(forms.ModelForm):
         exp = self.cleaned_data['ci_exp']
         
         if comp:
-            tutor.cedula_identidad = f"{nro}-{comp}-{exp}"
+            ci = f"{nro}-{comp}-{exp}"
         else:
-            tutor.cedula_identidad = f"{nro}-{exp}"
-            
+            ci = f"{nro}-{exp}"
+
+        tutor.cedula_identidad = ci
+
+        if self.instance and self.instance.pk:
+            tutor.pk = self.instance.pk
+
         if commit:
             tutor.save()
+
         return tutor
