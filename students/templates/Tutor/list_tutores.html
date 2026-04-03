@@ -1,94 +1,102 @@
 {% extends 'Registration/base_admin.html' %}
 {% load static %}
 
-{% block page_title %}Gestión de Tutores{% endblock %}
+{% block page_title %}
+  Gestión de Tutores
+{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'students/css/list_tutores.css' %}?v=1" />
+  <link rel="stylesheet" href="{% static 'students/css/list_tutores.css' %}?v=1" />
 
-<div class="list-container-wrapper">
+  <div class="list-container-wrapper">
     <div class="tutor-list-card">
-        
-        <div class="list-header">
-            <div class="header-info">
-                <h3><i class="fa-solid fa-users"></i> Directorio de Tutores</h3>
-                <p>Lista general de padres de familia y apoderados.</p>
-            </div>
-            <a href="{% url 'registrar_tutor' %}" class="btn-add-tutor">
-                <i class="fa-solid fa-user-plus"></i> Nuevo Tutor
-            </a>
+      <div class="list-header">
+        <div class="header-info">
+          <h3><i class="fa-solid fa-users"></i> Directorio de Tutores</h3>
+          <p>Lista general de padres de familia y apoderados.</p>
         </div>
+        <a href="{% url 'registrar_tutor' %}" class="btn-add-tutor"><i class="fa-solid fa-user-plus"></i> Nuevo Tutor</a>
+      </div>
 
-        <div class="list-body">
-            <table class="tutor-table">
-                <thead>
-                    <tr>
-                        <th style="width: 50px;">#</th>
-                        <th>Nombre Completo</th>
-                        <th>Cédula de Identidad</th>
-                        <th>Contacto</th>
-                        <th>Ocupación</th>
-                        <th style="text-align: center;">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {% for tutor in tutores %}
-                    <tr>
-                        <td><span class="row-number">{{ forloop.counter }}</span></td>
-
-                        <td>
-                            <div class="tutor-info">
-                                <span class="tutor-name">
-                                    {{ tutor.apellidos|upper }}, {{ tutor.nombres }}
-                                </span>
-                                <small class="tutor-sub">Apoderado</small>
-                            </div>
-                        </td>
-
-                        <td>
-                            <span class="ci-badge">
-                                {{ tutor.cedula_identidad }}
-                            </span>
-                        </td>
-
-                        <td>
-                            <a href="https://wa.me/591{{ tutor.celular }}" target="_blank" class="whatsapp-link">
-                                <i class="fa-brands fa-whatsapp"></i> {{ tutor.celular }}
-                            </a>
-                        </td>
-
-                        <td>{{ tutor.ocupacion }}</td>
-
-                        <!-- 🔥 AQUÍ VA LO IMPORTANTE -->
-                        <td class="actions-cell">
-                            
-                            <!-- EDITAR -->
-                            <a href="{% url 'editar_tutor' tutor.pk %}" class="btn-action edit">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-
-                            <!-- ELIMINAR -->
-                            <a href="{% url 'eliminar_tutor' tutor.pk %}" 
-                               class="btn-action delete"
-                               onclick="return confirm('¿Seguro que deseas eliminar este tutor?');">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </a>
-
-                        </td>
-                    </tr>
-
-                    {% empty %}
-                    <tr>
-                        <td colspan="6" style="text-align:center;">
-                            No hay tutores registrados
-                        </td>
-                    </tr>
-                    {% endfor %}
-
-                </tbody>
-            </table>
+      {% if request.GET.modo_seleccion %}
+        <div style="background-color: #fffbeb; border: 1px solid #f59e0b; color: #92400e; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
+          <i class="fa-solid fa-circle-info fa-2x"></i>
+          <div>
+            <strong>Modo Selección de Tutor:</strong>
+            Busque en la lista al tutor que desea asociar con el nuevo estudiante y presione el botón naranja <strong>"Seleccionar"</strong>.
+          </div>
         </div>
+      {% endif %}
+
+      <div class="list-body">
+        <table class="tutor-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th>Nombre Completo</th>
+              <th>Cédula de Identidad</th>
+              <th>Contacto</th>
+              <th>Ocupación</th>
+
+              {% if request.GET.modo_seleccion %}
+                <th style="text-align: center; background-color: #fef3c7;">Seleccionar</th>
+              {% endif %}
+
+              <th style="text-align: center;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tutor in tutores %}
+              <tr>
+                <td>
+                  <span class="row-number">{{ forloop.counter }}</span>
+                </td>
+
+                <td>
+                  <div class="tutor-info">
+                    <span class="tutor-name">{{ tutor.apellidos|upper }}, {{ tutor.nombres }}</span>
+                    <small class="tutor-sub">Apoderado</small>
+                  </div>
+                </td>
+
+                <td>
+                  <span class="ci-badge">{{ tutor.cedula_identidad }}</span>
+                </td>
+
+                <td>
+                  <a href="https://wa.me/591{{ tutor.celular }}" target="_blank" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i> {{ tutor.celular }}</a>
+                </td>
+
+                <td>{{ tutor.ocupacion }}</td>
+
+                {% if request.GET.modo_seleccion %}
+                  <td style="text-align: center; background-color: #fffbeb;">
+                    <a href="{% url 'crear_estudiante' %}?tutor_id={{ tutor.pk }}" class="btn-action select" style="background: #f59e0b; color: white; width: auto; padding: 6px 12px; font-size: 0.75rem; font-weight: 700; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;"><i class="fa-solid fa-check-to-slot"></i> SELECCIONAR</a>
+                  </td>
+                {% endif %}
+
+                <td class="actions-cell">
+                  <a href="{% url 'editar_tutor' tutor.pk %}" class="btn-action edit"><i class="fa-solid fa-pen-to-square"></i></a>
+
+                  <a href="{% url 'eliminar_tutor' tutor.pk %}" class="btn-action delete" onclick="return confirm('¿Seguro que deseas eliminar este tutor?');"><i class="fa-solid fa-trash-can"></i></a>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="{% if request.GET.modo_seleccion %}
+                    7
+                  {% else %}
+                    6
+                  {% endif %}"
+                  style="text-align:center;">No hay tutores registrados</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
-</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{% static 'students/js/list_tutores.js' %}"></script>
 {% endblock %}

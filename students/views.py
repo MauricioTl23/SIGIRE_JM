@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Tutor
-from django.shortcuts import get_object_or_404
+from .models import Tutor, Estudiante
 from .forms import TutorForm
+from django.urls import reverse
+
 
 @login_required
 def registrar_tutor(request):
@@ -11,9 +12,13 @@ def registrar_tutor(request):
         form = TutorForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            
+            tutor = form.save() 
             messages.success(request, "Tutor registrado correctamente.")
-            return redirect('list_tutores')
+            
+            base_url = reverse('list_tutores')
+            return redirect(f"{base_url}?nuevo_tutor_id={tutor.pk}")
+            
         else:
             messages.error(request, "Error en el formulario. Verifique los datos.")
 
@@ -21,16 +26,14 @@ def registrar_tutor(request):
         form = TutorForm()
     
     return render(request, 'Tutor/form_tutor.html', {'form': form})
+
 @login_required
-
-
 def list_tutores(request):
     tutores = Tutor.objects.all().order_by('apellidos')
     return render(request, 'Tutor/list_tutores.html', {'tutores': tutores})
 
 
 @login_required
-
 def editar_tutor(request, pk):
     tutor = get_object_or_404(Tutor, pk=pk)
 
@@ -67,3 +70,28 @@ def eliminar_tutor(request, pk):
     messages.warning(request, f"El tutor {tutor.nombres} ha sido eliminado.")
 
     return redirect('list_tutores')
+
+@login_required
+def crear_estudiante(request):
+    tutor_id = request.GET.get('tutor_id')
+    tutor_obj = None
+    mostrar_pregunta = False
+
+    if tutor_id:
+        try:
+            tutor_obj = Tutor.objects.get(pk=tutor_id)
+        except Tutor.DoesNotExist:
+            tutor_obj = None
+    else:
+        mostrar_pregunta = True
+
+    context = {
+        'tutor_seleccionado': tutor_obj,
+        'mostrar_pregunta': mostrar_pregunta,
+    }
+    return render(request, 'Student/form_student.html', context)
+
+@login_required
+def list_estudiantes(request):
+    estudiantes = Estudiante.objects.all()
+    return render(request, 'Student/list_estudiantes.html', {'estudiantes': estudiantes})

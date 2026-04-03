@@ -51,5 +51,9 @@ urlpatterns = [
     path('tutores/editar/<str:pk>/', students_views.editar_tutor, name='editar_tutor'),
     
     path('tutores/eliminar/<str:pk>/', students_views.eliminar_tutor, name='eliminar_tutor'),
+
+    path('crear-estudiante/', students_views.crear_estudiante, name='crear_estudiante'),
     
+    path('estudiantes/', students_views.list_estudiantes, name='list_estudiantes'),
+
 ]
