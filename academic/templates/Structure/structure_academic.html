@@ -20,7 +20,12 @@
           <h3><i class="fa-solid fa-calendar-days"></i> Gestiones Escolares</h3>
 
           {% if mostrar_btn_gestion %}
-            <a href="{% url 'crear_gestion' %}" class="btn-sm btn-add" title="Crear Gestión {{ siguiente_anio }}" style="text-decoration: none;" onclick="return confirm('⚠️ ¿Estás seguro de crear la Gestión {{ siguiente_anio }}? \n\nEsta acción activará el nuevo año escolar y cerrará automáticamente la gestión actual. Esta acción no se puede deshacer de forma sencilla.');"><i class="fa-solid fa-plus"></i> Crear {{ siguiente_anio }}</a>
+            <a href="{% url 'crear_gestion' %}" 
+               class="btn-sm btn-add" 
+               style="text-decoration: none;" 
+               onclick="confirmarEliminacion(event, 'la Gestión {{ siguiente_anio }}', 'Esta acción activará el nuevo año escolar y cerrará la gestión actual.')">
+               <i class="fa-solid fa-plus"></i> Crear {{ siguiente_anio }}
+            </a>
           {% endif %}
         </div>
         <div class="card-body">
@@ -59,8 +64,15 @@
                 <h4 class="nivel-title" style="margin: 0; color: #1e293b;">{{ nivel.nombre }}</h4>
 
                 <div class="nivel-actions">
-                  <a href="{% url 'editar_nivel' nivel.pk %}" title="Editar Nivel" style="color: #64748b; margin-right: 10px;"><i class="fa-solid fa-pen-to-square"></i></a>
-                  <a href="{% url 'eliminar_nivel' nivel.pk %}" title="Eliminar Nivel" style="color: #ef4444;" onclick="return confirm('¿Estás seguro? Se borrarán todos los grados de este nivel.');"><i class="fa-solid fa-trash-can"></i></a>
+                  <a href="{% url 'editar_nivel' nivel.pk %}" title="Editar Nivel" style="color: #64748b; margin-right: 10px;">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </a>
+                  <a href="{% url 'eliminar_nivel' nivel.pk %}" 
+                     title="Eliminar Nivel" 
+                     style="color: #ef4444;" 
+                     onclick="confirmarEliminacion(event, 'el Nivel {{ nivel.nombre }}', 'Se borrarán todos los grados y paralelos asociados a este nivel.')">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </a>
                 </div>
               </div>
 
@@ -72,7 +84,11 @@
 
                       <div style="display: flex; gap: 5px; border-left: 1px solid #bae6fd; padding-left: 8px; margin-left: 5px;">
                         <a href="{% url 'editar_grado' grado.pk %}" style="color: #0ea5e9; font-size: 0.75rem;"><i class="fa-solid fa-pen"></i></a>
-                        <a href="{% url 'eliminar_grado' grado.pk %}" style="color: #ef4444; font-size: 0.75rem;" onclick="return confirm('¿Eliminar este grado?');"><i class="fa-solid fa-xmark"></i></a>
+                        <a href="{% url 'eliminar_grado' grado.pk %}" 
+                           style="color: #ef4444; font-size: 0.75rem;" 
+                           onclick="confirmarEliminacion(event, 'el grado {{ grado.nombre }}')">
+                           <i class="fa-solid fa-xmark"></i>
+                        </a>
                       </div>
                     </div>
                   {% endif %}
@@ -99,7 +115,8 @@
               <th>Grado</th>
               <th>Paralelo</th>
               <th>Cupo Máximo</th>
-              <th style="text-align: center;">Acciones</th> </tr>
+              <th style="text-align: center;">Acciones</th>
+            </tr>
           </thead>
           <tbody>
             {% for paralelo in paralelos %}
@@ -110,7 +127,10 @@
                 <td>{{ paralelo.cupo_max }} alumnos</td>
                 
                 <td style="text-align: center;">
-                  <a href="{% url 'eliminar_paralelo' paralelo.pk %}" style="color: #ef4444; font-size: 1.1rem; transition: 0.2s;" onclick="return confirm('⚠️ ¿Estás seguro de eliminar este paralelo?');" title="Eliminar Paralelo">
+                  <a href="{% url 'eliminar_paralelo' paralelo.pk %}" 
+                     style="color: #ef4444; font-size: 1.1rem; transition: 0.2s;" 
+                     title="Eliminar Paralelo"
+                     onclick="confirmarEliminacion(event, 'el Paralelo {{ paralelo.letra }} de {{ paralelo.grado.nombre }}')">
                     <i class="fa-solid fa-trash-can"></i>
                   </a>
                 </td>
@@ -125,6 +145,7 @@
       </div>
     </div>
   </div>
+
   <div id="modalParalelo" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center; backdrop-filter: blur(2px);">
     <div style="background: white; padding: 25px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">

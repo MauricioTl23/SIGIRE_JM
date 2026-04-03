@@ -50,9 +50,14 @@
               <i class="fa-solid fa-users-line"></i> Lista de Tutores
             </a>
 
-            <a href="#" class="nav-item sub-item">
+            <a href="{% url 'crear_estudiante' %}" class="nav-item sub-item {% if request.resolver_match.url_name == 'crear_estudiante' %}active-sub{% endif %}">
               <i class="fa-solid fa-child-reaching"></i> Registrar Estudiante
             </a>
+
+            <a href="{% url 'list_estudiantes' %}" class="nav-item sub-item {% if request.resolver_match.url_name == 'list_estudiantes' %}active-sub{% endif %}">
+              <i class="fa-solid fa-children"></i> Lista de Estudiantes
+            </a>
+
           </div>
         </div>
 
@@ -84,32 +89,34 @@
 
       <main class="content-area">
         {% if messages %}
-          <div style="margin-bottom: 20px;">
-            {% for message in messages %}
-              <div style="padding: 12px; border-radius: 6px; margin-bottom: 10px; font-weight: 600; border-left: 4px solid;
-                {% if message.tags == 'error' %}
-                  background-color: #fef2f2; color: #dc2626; border-color: #dc2626;
-                {% elif message.tags == 'warning' %}
-                  background-color: #fffbeb; color: #92400e; border-color: #f59e0b;
-                {% else %}
-                  background-color: #d1fae5; color: #065f46; border-color: #10b981;
-                {% endif %}">
-                <i class="fa-solid 
-                  {% if message.tags == 'error' %} fa-circle-xmark
-                  {% elif message.tags == 'warning' %} fa-triangle-exclamation
-                  {% else %} fa-circle-check {% endif %}">
-                </i>
-                {{ message }}
-              </div>
-            {% endfor %}
-          </div>
-        {% endif %}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      {% for message in messages %}
+        Swal.fire({
+          // Definimos el icono según el tag de Django
+          icon: '{% if message.tags == "error" %}error{% elif message.tags == "warning" %}warning{% elif message.tags == "success" %}success{% else %}info{% endif %}',
+          
+          // Título corto y directo
+          title: '{% if message.tags == "success" %}¡Logrado!{% elif message.tags == "error" %}¡Atención!{% else %}Información{% endif %}',
+          
+          // El mensaje largo va aquí (el campo 'text' permite múltiples líneas y no se sale)
+          text: '{{ message|escapejs }}',
+          
+          confirmButtonText: 'Entendido',
+          confirmButtonColor: '#3b82f6', // Color azul acorde a tu diseño
+          timer: 5000, // Se cierra solo después de 5 segundos si no presionan el botón
+          timerProgressBar: true
+        });
+      {% endfor %}
+    });
+  </script>
+{% endif %}
 
         {% block content %}
         {% endblock %}
       </main>
     </div>
-
     <script src="{% static 'accounts/js/base_admin.js' %}"></script>
   </body>
 </html>

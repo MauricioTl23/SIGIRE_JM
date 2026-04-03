@@ -1,0 +1,115 @@
+{% extends 'Registration/base_admin.html' %}
+{% load static %}
+
+{% block page_title %}Gestión de Estudiantes{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'students/css/list_estudiantes.css' %}?v=1" />
+
+<div class="list-container-wrapper">
+    <div class="student-list-card">
+        
+        <div class="list-header">
+            <div class="header-info">
+                <h3><i class="fa-solid fa-children"></i> Directorio de Estudiantes</h3>
+                <p>Lista general de alumnos matriculados en la institución.</p>
+            </div>
+            <a href="{% url 'crear_estudiante' %}" class="btn-add-student">
+                <i class="fa-solid fa-user-plus"></i> Nuevo Estudiante
+            </a>
+        </div>
+
+        <div class="list-body">
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th>Nombre Completo</th>
+                        <th>Cédula de Identidad</th>
+                        <th>Género / F. Nac.</th>
+                        <th>Contacto</th>
+                        <th style="text-align: center;">Estado</th>
+                        <th style="text-align: center;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for estudiante in estudiantes %}
+                    <tr>
+                        <td><span class="row-number">{{ forloop.counter }}</span></td>
+
+                        <td>
+                            <div class="student-info">
+                                <span class="student-name">
+                                    {{ estudiante.apellido_paterno|upper }} {{ estudiante.apellido_materno|upper }}, {{ estudiante.nombres }}
+                                </span>
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="ci-badge">
+                                {{ estudiante.cedula_identidad }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <div class="demographics-info">
+                                <span>
+                                    {% if estudiante.genero == 'M' %}
+                                        <i class="fa-solid fa-mars" style="color: #3b82f6;"></i> Masculino
+                                    {% else %}
+                                        <i class="fa-solid fa-venus" style="color: #ec4899;"></i> Femenino
+                                    {% endif %}
+                                </span>
+                                <small class="sub-text">{{ estudiante.fecha_nacimiento|date:"d/m/Y" }}</small>
+                            </div>
+                        </td>
+
+                        <td>
+                            {% if estudiante.correo_electronico %}
+                                <a href="mailto:{{ estudiante.correo_electronico }}" class="email-link">
+                                    <i class="fa-solid fa-envelope"></i> Email
+                                </a>
+                            {% else %}
+                                <span class="no-data">Sin correo</span>
+                            {% endif %}
+                        </td>
+
+                        <td style="text-align: center;">
+                            {% if estudiante.estado %}
+                                <span class="status-badge active"><i class="fa-solid fa-check"></i> Activo</span>
+                            {% else %}
+                                <span class="status-badge inactive"><i class="fa-solid fa-xmark"></i> Inactivo</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="actions-cell">
+                            
+                            <a href="#" class="btn-action edit" title="Editar Estudiante">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+
+                            <a href="#" 
+                               class="btn-action delete" title="Eliminar Estudiante"
+                               onclick="return confirm('¿Seguro que deseas eliminar este registro?');">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <i class="fa-solid fa-folder-open empty-icon"></i>
+                            <p>No hay estudiantes registrados actualmente</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

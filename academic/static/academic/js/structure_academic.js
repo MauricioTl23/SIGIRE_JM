@@ -1,3 +1,23 @@
+function confirmarEliminacion(event, nombreItem, textoExtra = "") {
+    event.preventDefault();
+    const urlEliminar = event.currentTarget.getAttribute('href');
+
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: textoExtra ? textoExtra : `Estás a punto de eliminar ${nombreItem}. Esta acción no se puede deshacer.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = urlEliminar;
+        }
+    });
+}
 
 function abrirModal() {
   document.getElementById('modalParalelo').style.display = 'flex';
@@ -55,3 +75,4 @@ function filtrarGrados() {
 document.addEventListener('DOMContentLoaded', function () {
   filtrarGrados();
 });
+
