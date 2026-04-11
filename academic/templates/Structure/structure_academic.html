@@ -21,9 +21,10 @@
 
           {% if mostrar_btn_gestion %}
             <a href="{% url 'crear_gestion' %}" 
-               class="btn-sm btn-add" 
+               class="btn-sm btn-add alerta-eliminar" 
                style="text-decoration: none;" 
-               onclick="confirmarEliminacion(event, 'la Gestión {{ siguiente_anio }}', 'Esta acción activará el nuevo año escolar y cerrará la gestión actual.')">
+               data-nombre="la Gestión {{ siguiente_anio }}"
+               data-extra="Esta acción activará el nuevo año escolar y cerrará la gestión actual.">
                <i class="fa-solid fa-plus"></i> Crear {{ siguiente_anio }}
             </a>
           {% endif %}
@@ -70,7 +71,9 @@
                   <a href="{% url 'eliminar_nivel' nivel.pk %}" 
                      title="Eliminar Nivel" 
                      style="color: #ef4444;" 
-                     onclick="confirmarEliminacion(event, 'el Nivel {{ nivel.nombre }}', 'Se borrarán todos los grados y paralelos asociados a este nivel.')">
+                     class="alerta-eliminar"
+                     data-nombre="el Nivel {{ nivel.nombre }}"
+                     data-extra="Se borrarán todos los grados y paralelos asociados a este nivel.">
                     <i class="fa-solid fa-trash-can"></i>
                   </a>
                 </div>
@@ -86,7 +89,8 @@
                         <a href="{% url 'editar_grado' grado.pk %}" style="color: #0ea5e9; font-size: 0.75rem;"><i class="fa-solid fa-pen"></i></a>
                         <a href="{% url 'eliminar_grado' grado.pk %}" 
                            style="color: #ef4444; font-size: 0.75rem;" 
-                           onclick="confirmarEliminacion(event, 'el grado {{ grado.nombre }}')">
+                           class="alerta-eliminar"
+                           data-nombre="el grado {{ grado.nombre }}">
                            <i class="fa-solid fa-xmark"></i>
                         </a>
                       </div>
@@ -130,7 +134,8 @@
                   <a href="{% url 'eliminar_paralelo' paralelo.pk %}" 
                      style="color: #ef4444; font-size: 1.1rem; transition: 0.2s;" 
                      title="Eliminar Paralelo"
-                     onclick="confirmarEliminacion(event, 'el Paralelo {{ paralelo.letra }} de {{ paralelo.grado.nombre }}')">
+                     class="alerta-eliminar"
+                     data-nombre="el Paralelo {{ paralelo.letra }} de {{ paralelo.grado.nombre }}">
                     <i class="fa-solid fa-trash-can"></i>
                   </a>
                 </td>
@@ -176,5 +181,5 @@
     </div>
   </div>
 
-  <script src="{% static 'academic/js/structure_academic.js' %}"></script>
+  <script src="{% static 'academic/js/structure_academic.js' %}?v=3"></script>
 {% endblock %}
