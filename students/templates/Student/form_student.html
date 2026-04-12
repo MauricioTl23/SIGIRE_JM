@@ -112,21 +112,21 @@
                         <div class="direccion-grid" style="display: grid; grid-template-columns: 1.5fr 2fr 1fr; gap: 15px;">
                             
                             <div>
-                                <input type="text" name="dir_zona"
+                                <input type="text" name="zona"
                                        class="student-input"
                                        placeholder="Ej: Zona Sur, Barrio Lindo...">
                                 <small class="input-hint">Zona o Barrio</small>
                             </div>
 
                             <div>
-                                <input type="text" name="dir_calle"
+                                <input type="text" name="avenida"
                                        class="student-input"
                                        placeholder="Ej: Av. Las Américas, C. Sucre...">
                                 <small class="input-hint">Avenida o Calle</small>
                             </div>
 
                             <div>
-                                <input type="text" name="dir_numero"
+                                <input type="text" name="num_puerta"
                                        class="student-input"
                                        placeholder="Ej: #123 o S/N">
                                 <small class="input-hint">Número de puerta</small>
@@ -164,7 +164,7 @@
                     <button type="submit" class="btn-save-student">
                         <i class="fa-solid fa-floppy-disk"></i> Guardar Estudiante
                     </button>
-                    <a href="{% url 'dashboard' %}" class="btn-cancel-student">Cancelar</a> 
+                    <a href="{% url 'list_estudiantes' %}" class="btn-cancel-student">Cancelar</a> 
                 </div>
             </form>
         </div>

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Tutor, Estudiante
-from .forms import TutorForm
+from .forms import TutorForm,EstudianteForm
 from django.urls import reverse
 
 
@@ -71,27 +71,63 @@ def eliminar_tutor(request, pk):
 
     return redirect('list_tutores')
 
-@login_required
-def crear_estudiante(request):
-    tutor_id = request.GET.get('tutor_id')
-    tutor_obj = None
-    mostrar_pregunta = False
+# @login_required
+# def crear_estudiante(request):
+#     tutor_id = request.GET.get('tutor_id')
+#     tutor_obj = None
+#     mostrar_pregunta = False
 
-    if tutor_id:
-        try:
-            tutor_obj = Tutor.objects.get(pk=tutor_id)
-        except Tutor.DoesNotExist:
-            tutor_obj = None
-    else:
-        mostrar_pregunta = True
+#     if tutor_id:
+#         try:
+#             tutor_obj = Tutor.objects.get(pk=tutor_id)
+#         except Tutor.DoesNotExist:
+#             tutor_obj = None
+#     else:
+#         mostrar_pregunta = True
 
-    context = {
-        'tutor_seleccionado': tutor_obj,
-        'mostrar_pregunta': mostrar_pregunta,
-    }
-    return render(request, 'Student/form_student.html', context)
+#     context = {
+#         'tutor_seleccionado': tutor_obj,
+#         'mostrar_pregunta': mostrar_pregunta,
+#     }
+#     return render(request, 'Student/form_student.html', context)
 
 @login_required
 def list_estudiantes(request):
     estudiantes = Estudiante.objects.all()
     return render(request, 'Student/list_estudiantes.html', {'estudiantes': estudiantes})
+
+#REGISTRAR ESTUDIANTE 
+
+@login_required
+def crear_estudiante(request):
+    tutor_id = request.GET.get('tutor_id')
+    tutor_guardar = None
+    mostrar_pregunta = False
+
+    if tutor_id:
+        try:
+            tutor_guardar = Tutor.objects.get(pk=tutor_id)
+        except Tutor.DoesNotExist:
+            tutor_guardar = None
+    else:
+        mostrar_pregunta = True
+
+    if request.method == "POST":
+        form = EstudianteForm(request.POST)
+
+        if form.is_valid():
+            messages.success(request, "Estudiante registrado correctamente.")   
+            form.save()
+            return redirect("list_estudiantes")
+        else:
+            messages.error(request, "Error en el formulario. Verifique los datos.") 
+    else:
+        form = EstudianteForm()
+
+    context = {
+        'form': form,  
+        'tutor_seleccionado': tutor_guardar,
+        'mostrar_pregunta': mostrar_pregunta,
+    }
+
+    return render(request, 'Student/form_student.html', context)

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Tutor
+from .models import Tutor,Estudiante
 
 class TutorForm(forms.ModelForm):
     ci_nro = forms.CharField(max_length=10, label="Número de CI")
@@ -58,3 +58,48 @@ class TutorForm(forms.ModelForm):
             tutor.save()
 
         return tutor
+    
+#form para estudiante 
+class EstudianteForm(forms.ModelForm):
+    ci_nro = forms.CharField(max_length=10, label="Número de CI")
+    ci_comp = forms.CharField(max_length=2, required=False, label="Complemento")
+    ci_exp = forms.ChoiceField(choices=[ ('LP', 'La Paz'), ('OR', 'Oruro'), ('PT', 'Potosí'),
+        ('CB', 'Cochabamba'), ('SC', 'Santa Cruz'), ('BN', 'Beni'),
+        ('PA', 'Pando'), ('TJ', 'Tarija'), ('CH', 'Chuquisaca')
+    ], label="Expedido")
+    zona = forms.CharField(max_length=100)
+    avenida = forms.CharField(max_length=100)
+    num_puerta = forms.CharField(max_length=10)  
+    class Meta:
+          model = Estudiante
+          fields = ['nombres',
+                    'apellido_paterno',
+                    'apellido_materno',
+                    'fecha_nacimiento',
+                    'genero',
+                    'correo_electronico',
+                    'estado'
+                    ]
+    #unir datos 
+    def save(self,commit= True):
+        estudiante = super().save(commit=False)
+
+        numero = self.cleaned_data["ci_nro"]
+        complemento = self.cleaned_data.get("ci_comp")
+        expedido = self.cleaned_data["ci_exp"]
+
+        if complemento:
+            estudiante.cedula_identidad = f"{numero}-{complemento} {expedido}"
+        else:
+            estudiante.cedula_identidad = f"{numero} {expedido}"
+        # Unir Dirección
+        zona = self.cleaned_data["zona"]
+        avenida = self.cleaned_data["avenida"]
+        numero_puerta = self.cleaned_data["num_puerta"]
+
+        estudiante.direccion = f"{zona}, {avenida}, N° {numero_puerta}"
+
+        if commit:
+            estudiante.save()
+
+        return estudiante
