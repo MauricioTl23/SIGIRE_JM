@@ -142,7 +142,7 @@ def list_estudiantes(request):
             Q(nombres__icontains=query) |
             Q(apellido_paterno__icontains=query) |
             Q(apellido_materno__icontains=query) |
-            Q(ci_nro__icontains=query)
+            Q(cedula_identidad__icontains=query)
         ).distinct()
 
     if genero_filtro:
