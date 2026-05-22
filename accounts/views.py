@@ -278,4 +278,82 @@ def dashboard(request):
 @login_required
 @only_administrative
 def reportes(request):
-    return render(request, 'registration/reportes.html')
+    from django.db.models import OuterRef, Exists, Q
+    from django.core.paginator import Paginator
+
+    gestion_activa = Gestion.objects.filter(estado=True).first()
+
+    query = request.GET.get('q', '').strip()
+    genero_filtro = request.GET.get('genero', '')
+    estado_inscripcion = request.GET.get('inscripcion', '')
+    incluir_inactivos = request.GET.get('inactivos') == 'on'
+
+    estudiantes = Estudiante.objects.all().order_by('apellido_paterno', 'apellido_materno', 'nombres')
+
+    if not incluir_inactivos:
+        estudiantes = estudiantes.filter(estado=True)
+
+    if query:
+        estudiantes = estudiantes.filter(
+            Q(cedula_identidad__icontains=query) |
+            Q(nombres__icontains=query) |
+            Q(apellido_paterno__icontains=query) |
+            Q(apellido_materno__icontains=query)
+        )
+
+    if genero_filtro:
+        estudiantes = estudiantes.filter(genero=genero_filtro)
+
+    inscripcion_actual = Inscripcion.objects.filter(
+        estudiante=OuterRef('pk'),
+        estado=True
+    )
+    if gestion_activa:
+        inscripcion_actual = inscripcion_actual.filter(gestion=gestion_activa)
+
+    estudiantes = estudiantes.annotate(
+        tiene_inscripcion=Exists(inscripcion_actual)
+    )
+
+    if estado_inscripcion == 'con':
+        estudiantes = estudiantes.filter(tiene_inscripcion=True)
+    elif estado_inscripcion == 'sin':
+        estudiantes = estudiantes.filter(tiene_inscripcion=False)
+
+    inscripciones = Inscripcion.objects.filter(
+        estudiante__in=estudiantes,
+        estado=True
+    ).select_related('paralelo__grado__nivel', 'gestion')
+
+    insc_por_estudiante = {i.estudiante_id: i for i in inscripciones}
+
+    filas = []
+    for est in estudiantes:
+        filas.append({
+            'estudiante': est,
+            'inscripcion': insc_por_estudiante.get(est.cedula_identidad),
+        })
+
+    total = estudiantes.count()
+    con_inscripcion = sum(1 for e in estudiantes if e.tiene_inscripcion)
+    sin_inscripcion = total - con_inscripcion
+
+    paginator = Paginator(filas, 15)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'filas': page_obj,
+        'gestion_activa': gestion_activa,
+        'total': total,
+        'con_inscripcion': con_inscripcion,
+        'sin_inscripcion': sin_inscripcion,
+        'query': query,
+        'genero_filtro': genero_filtro,
+        'estado_inscripcion': estado_inscripcion,
+        'incluir_inactivos': incluir_inactivos,
+        'page_obj': page_obj,
+    }
+
+    return render(request, 'registration/reportes.html', context)
+
