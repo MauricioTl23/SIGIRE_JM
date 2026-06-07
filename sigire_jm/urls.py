@@ -98,4 +98,6 @@ urlpatterns = [
 
     path('reportes/', accounts_views.reportes, name='reportes'),
 
+    path('reportes/curso/<int:paralelo_id>/estudiantes/', accounts_views.curso_estudiantes, name='curso_estudiantes'),
+
 ]

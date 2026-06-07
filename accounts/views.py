@@ -12,6 +12,7 @@ from .models import User
 from .decorators import only_director, only_administrative
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
+from django.http import JsonResponse
 from .forms import CustomPasswordChangeForm
 from django.db.models import Sum
 from students.models import Estudiante
@@ -459,6 +460,8 @@ def reportes(request):
                     'nivel': nivel.nombre,
                     'grado': grado.nombre,
                     'paralelo': paralelo.letra,
+                    'paralelo_id': paralelo.id,
+                    'gestion_id': curso_gestion_filtro if curso_gestion_filtro else '',
                     'inscritos': insc_count,
                     'cupo': cupo,
                     'disponibles': max(cupo - insc_count, 0),
@@ -509,4 +512,26 @@ def reportes(request):
     }
 
     return render(request, 'registration/reportes.html', context)
+
+
+@login_required
+@only_administrative
+def curso_estudiantes(request, paralelo_id):
+    gestion_id = request.GET.get('gestion_id', '')
+    inscripciones = Inscripcion.objects.filter(
+        paralelo_id=paralelo_id,
+        estado=True,
+    ).select_related('estudiante')
+    if gestion_id:
+        inscripciones = inscripciones.filter(gestion_id=gestion_id)
+
+    estudiantes = []
+    for ins in inscripciones:
+        est = ins.estudiante
+        estudiantes.append({
+            'nombres': f"{est.nombres} {est.apellido_paterno} {est.apellido_materno}".strip(),
+            'ci': est.cedula_identidad,
+        })
+
+    return JsonResponse({'estudiantes': estudiantes})
 
