@@ -98,6 +98,4 @@ urlpatterns = [
 
     path('reportes/', accounts_views.reportes, name='reportes'),
 
-    path('reportes/imprimir-lista/', enrollment_views.imprimir_lista_estudiantes, name='imprimir_lista_estudiantes'),
-
 ]

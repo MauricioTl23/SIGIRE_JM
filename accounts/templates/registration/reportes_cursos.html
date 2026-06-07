@@ -102,7 +102,6 @@
             <th>Cupo máx.</th>
             <th>Disponibles</th>
             <th>Ocupación</th>
-            <th>Acción</th>
           </tr>
         </thead>
 
@@ -163,16 +162,6 @@
                   <small>{{ pct }}%</small>
                 </div>
               </td>
-
-              <td data-label="Acción">
-                <button type="button"
-                        class="btn-view-students"
-                        data-course-idx="{{ forloop.counter0 }}"
-                        data-course-name="{{ curso.grado }} &quot;{{ curso.paralelo }}&quot;">
-                  <i class="fa-solid fa-users"></i>
-                  Ver estudiantes
-                </button>
-              </td>
             </tr>
           {% empty %}
             <tr>
@@ -196,52 +185,3 @@
     </p>
   {% endif %}
 </div>
-
-<div id="course-students-panel" class="course-students-panel hidden">
-  <div class="panel-header">
-    <div class="panel-header-info">
-      <span class="panel-badge">
-        <i class="fa-solid fa-graduation-cap"></i>
-        Lista de estudiantes
-      </span>
-      <h3 id="panel-course-title">Curso</h3>
-    </div>
-    <div class="panel-header-actions">
-      <a href="#" class="panel-print-btn" id="panelPrintBtn">
-        <i class="fa-solid fa-print"></i>
-        Imprimir listas
-      </a>
-      <button type="button" class="panel-close-btn" id="panelCloseBtn">
-        <i class="fa-solid fa-xmark"></i>
-        Cerrar
-      </button>
-    </div>
-  </div>
-
-  <div class="panel-body">
-    <div class="table-responsive">
-      <table class="panel-students-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>CI</th>
-            <th>Apellidos y Nombres</th>
-            <th>Género</th>
-            <th>Estado documental</th>
-            <th>RUDE</th>
-          </tr>
-        </thead>
-        <tbody id="panel-students-tbody">
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="panel-footer">
-    <span id="panel-total-count">0 estudiantes</span>
-  </div>
-</div>
-
-<script>
-  window._cursosEstudiantes = {{ cursos_json|safe }};
-</script>

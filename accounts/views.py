@@ -1,7 +1,5 @@
 import random
 import string
-import json
-from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -457,9 +455,6 @@ def reportes(request):
                     qs = qs.filter(gestion_id=curso_gestion_filtro)
                 insc_count = qs.count()
                 cupo = paralelo.cupo_max
-                estudiantes_curso = qs.select_related(
-                    'estudiante', 'gestion'
-                ).order_by('estudiante__apellido_paterno', 'estudiante__nombres')
                 cursos_data.append({
                     'nivel': nivel.nombre,
                     'grado': grado.nombre,
@@ -467,36 +462,9 @@ def reportes(request):
                     'inscritos': insc_count,
                     'cupo': cupo,
                     'disponibles': max(cupo - insc_count, 0),
-                    'estudiantes': estudiantes_curso,
                 })
 
-    gestion_id_num = int(curso_gestion_filtro) if curso_gestion_filtro and curso_gestion_filtro.isdigit() else 0
-    cursos_json = json.dumps([
-        {
-            'idx': i,
-            'gestion_id': gestion_id_num or (gestion_activa.id if gestion_activa else 0),
-            'nivel': c['nivel'],
-            'grado': c['grado'],
-            'paralelo': c['paralelo'],
-            'inscritos': c['inscritos'],
-            'cupo': c['cupo'],
-            'estudiantes': [
-                {
-                    'ci': e.estudiante.cedula_identidad,
-                    'nombres': f"{e.estudiante.apellido_paterno} {e.estudiante.apellido_materno}, {e.estudiante.nombres}",
-                    'genero': e.estudiante.get_genero_display(),
-                    'estado_doc': e.get_estado_documental_display(),
-                    'estado_doc_cls': e.estado_documental,
-                    'rude': e.rude,
-                }
-                for e in c['estudiantes']
-            ],
-        }
-        for i, c in enumerate(cursos_data)
-    ], cls=DjangoJSONEncoder)
-
     context = {
-        'cursos_json': cursos_json,
         'filas': page_obj,
         'gestion_activa': gestion_activa,
         'total': total,

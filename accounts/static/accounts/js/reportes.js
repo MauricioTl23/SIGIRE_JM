@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
   initAjaxReports();
   initPrintButtons();
   initReportAnimations();
-  initCourseExpand();
   switchReport("reporte-estudiantes");
 });
 
@@ -76,7 +75,7 @@ function initAjaxReports() {
   bindAjaxReport("reporte-estudiantes", ".filter-bar", ".pagination a, a[data-ajax]");
   bindAjaxReport("reporte-inscripciones", ".filter-bar", ".pagination a, a[data-ajax-ins]");
   bindAjaxReport("reporte-documental", ".filter-bar", ".pagination a, a[data-ajax-doc]");
-  bindAjaxReport("reporte-cursos", ".courses-filter-form", "a[data-ajax-cur]");
+  bindAjaxReport("reporte-cursos", ".filter-bar", "a[data-ajax-cur]");
 }
 
 
@@ -418,73 +417,6 @@ function initReportAnimations() {
     item.classList.add("report-fade-in");
   });
 }
-
-function initCourseExpand() {
-  var panel = document.getElementById("course-students-panel");
-  var panelTitle = document.getElementById("panel-course-title");
-  var panelTbody = document.getElementById("panel-students-tbody");
-  var panelTotal = document.getElementById("panel-total-count");
-  var closeBtn = document.getElementById("panelCloseBtn");
-  var printBtn = document.getElementById("panelPrintBtn");
-
-  if (!panel || !panelTitle || !panelTbody) return;
-
-  document.addEventListener("click", function (event) {
-    var btn = event.target.closest(".btn-view-students");
-
-    if (!btn) return;
-
-    var idx = btn.dataset.courseIdx;
-    var courseName = btn.dataset.courseName;
-    var data = window._cursosEstudiantes;
-
-    if (!data || !data[idx]) return;
-
-    var curso = data[idx];
-
-    panelTitle.textContent = curso.grado + " \"" + curso.paralelo + "\" - " + curso.nivel;
-
-    if (printBtn) {
-      printBtn.href = "/reportes/imprimir-lista/?gestion=" + curso.gestion_id + "&nivel=" + encodeURIComponent(curso.nivel) + "&grado=" + encodeURIComponent(curso.grado) + "&paralelo=" + encodeURIComponent(curso.paralelo);
-    }
-
-    panelTbody.innerHTML = "";
-
-    if (curso.estudiantes.length === 0) {
-      var tr = document.createElement("tr");
-      var td = document.createElement("td");
-      td.setAttribute("colspan", "6");
-      td.className = "panel-empty";
-      td.innerHTML = '<i class="fa-solid fa-user-slash"></i><p>No hay estudiantes inscritos en este curso.</p>';
-      tr.appendChild(td);
-      panelTbody.appendChild(tr);
-    } else {
-      curso.estudiantes.forEach(function (est, i) {
-        var tr = document.createElement("tr");
-        tr.innerHTML =
-          "<td>" + (i + 1) + "</td>" +
-          "<td>" + est.ci + "</td>" +
-          "<td>" + est.nombres + "</td>" +
-          "<td>" + est.genero + "</td>" +
-          '<td><span class="doc-badge doc-' + est.estado_doc_cls + '">' + est.estado_doc + "</span></td>" +
-          "<td>" + est.rude + "</td>";
-        panelTbody.appendChild(tr);
-      });
-    }
-
-    panelTotal.textContent = curso.estudiantes.length + " estudiante(s)";
-    panel.classList.remove("hidden");
-
-    panel.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-
-  if (closeBtn) {
-    closeBtn.addEventListener("click", function () {
-      panel.classList.add("hidden");
-    });
-  }
-}
-
 
 function initPrintButtons() {
   const buttons = document.querySelectorAll(".js-print-report");
