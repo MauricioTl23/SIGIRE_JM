@@ -462,13 +462,35 @@
   #reporte-cursos .courses-table {
     min-width: 860px;
   }
+
+  #reporte-cursos .expand-row td {
+    padding: 1rem !important;
+  }
+  #reporte-cursos .expand-header {
+    font-size: 0.85rem;
+  }
+  #reporte-cursos .expand-table th,
+  #reporte-cursos .expand-table td {
+    white-space: nowrap;
+  }
+  #reporte-cursos .expand-num {
+    width: 28px;
+    font-size: 0.8rem;
+  }
+  #reporte-cursos .expand-name {
+    font-size: 0.82rem;
+  }
+  #reporte-cursos .expand-ci {
+    font-size: 0.8rem;
+  }
 }
 
 /* IMPRESIÓN */
 
 @media print {
   #reporte-cursos .courses-filter-form,
-  #reporte-cursos .report-section-header .print-btn {
+  #reporte-cursos .report-section-header .print-btn,
+  #reporte-cursos .btn-list-students {
     display: none !important;
   }
 
@@ -485,5 +507,142 @@
   #reporte-cursos .progress-fill.warning,
   #reporte-cursos .progress-fill.danger {
     background: #111827 !important;
+  }
+
+  #reporte-cursos .expand-row {
+    display: none !important;
+  }
+}
+
+/* BOTÓN LISTA */
+#reporte-cursos .btn-list-students {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid #2563eb;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-family: "Inter", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+#reporte-cursos .btn-list-students:hover,
+#reporte-cursos .btn-list-students.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* EXPANDIBLE LISTA ESTUDIANTES */
+#reporte-cursos .expand-row td {
+  padding: 1.25rem 1.5rem !important;
+  background: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+#reporte-cursos .expand-row + tr td {
+  border-top: none;
+}
+#reporte-cursos .expand-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: #0f172a;
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+#reporte-cursos .expand-header i {
+  color: #2563eb;
+  font-size: 1.1rem;
+}
+#reporte-cursos .expand-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 2rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+#reporte-cursos .expand-loading i {
+  font-size: 1.2rem;
+}
+#reporte-cursos .expand-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #94a3b8;
+}
+#reporte-cursos .expand-empty i {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #cbd5e1;
+  font-size: 1.8rem;
+}
+#reporte-cursos .expand-empty h4 {
+  margin: 0 0 0.25rem;
+  color: #0f172a;
+  font-size: 1rem;
+  font-weight: 900;
+}
+#reporte-cursos .expand-empty p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.88rem;
+}
+#reporte-cursos .expand-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#reporte-cursos .expand-table th {
+  padding: 0.7rem 1rem;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+#reporte-cursos .expand-table td {
+  padding: 0.65rem 1rem !important;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.88rem;
+}
+#reporte-cursos .expand-table tbody tr:hover {
+  background: #ffffff;
+}
+#reporte-cursos .expand-table tbody tr:last-child td {
+  border-bottom: none;
+}
+#reporte-cursos .expand-num {
+  width: 40px;
+  color: #94a3b8;
+  font-weight: 700;
+}
+#reporte-cursos .expand-name {
+  font-weight: 700;
+  color: #0f172a;
+}
+#reporte-cursos .expand-ci {
+  font-family: "Inter", monospace;
+  color: #475569;
+}
+
+@media (max-width: 480px) {
+  #reporte-cursos .expand-row td {
+    padding: 0.75rem !important;
+  }
+  #reporte-cursos .expand-table th {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.6rem;
+    white-space: nowrap;
+  }
+  #reporte-cursos .expand-table td {
+    padding: 0.5rem 0.6rem !important;
+    font-size: 0.8rem;
   }
 }
